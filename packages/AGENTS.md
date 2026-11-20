@@ -1,6 +1,6 @@
 # AGENTS.md — Shared packages
 
-These rules supplement the repo-wide [conventions](../AGENTS.md#conventions); the [TypeScript rules](../web/AGENTS.md#typescript) apply here.
+These rules supplement the repo-wide [conventions](../AGENTS.md#conventions); the [TypeScript](../web/AGENTS.md#typescript) and [component](../web/AGENTS.md#components-and-state) rules apply here.
 
 ## Packages
 

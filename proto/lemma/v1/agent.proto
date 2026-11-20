@@ -55,8 +55,8 @@ message ToolCallStarted {
 
 message ToolCallFinished {
   string call_id = 1;
-  string content = 3;
-  bool is_error = 4;
+  string content = 2;
+  bool is_error = 3;
 }
 
 message AgentEvent {

@@ -31,3 +31,9 @@ Prefer shipping implementations and fake only the model network boundary:
 - Use in-memory SQLite (`lemma_db::in_memory`) or temporary directories for Rust storage and tools, and feed scripted vendor SSE or loopback HTTP responses into real adapters and `InProcessEngine`.
 - On Android, run `SettingsRepository` over `MapSettings` and test `ConnectLemmaClient` against the host `lemma-uniffi` engine with a loopback mock model server.
 - Use vitest fake timers for time-dependent web logic.
+
+## Behavioral tests
+
+- **Observable behavior at public interfaces:** assert caller- or user-visible outcomes through the module's public API rather than private helpers, internal call counts, or side-channel storage reads, so internal refactors keep tests green.
+- **Independent expected values:** write expected outputs as concrete literals or spec-derived fixtures instead of recomputing them with the logic under test.
+- **Vertical test-first slices:** when working test-first, advance one behavior per red-green cycle — one failing test at the public interface, minimal passing code, then the next slice — rather than writing a batch of speculative tests up front.

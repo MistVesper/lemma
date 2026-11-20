@@ -1,11 +1,11 @@
 ---
 name: lemma-commit
-description: Use when writing or reviewing a git commit message in Lemma — subject format, type and scope, body, footers, atomicity — or when merging a branch into `main`.
+description: Use when writing or reviewing a git commit message or pull request body in Lemma — subject format, type and scope, body, footers, atomicity, PR summary/evidence/risk sections — or when merging a branch into `main`.
 ---
 
-# Lemma Commit Standard
+# Lemma Commit and Pull Request Standard
 
-Write signal-dense commit messages in English that record why changes exist and what invariants they maintain.
+Write signal-dense commit messages and pull request bodies in English that record why changes exist and what invariants they maintain. Pull request structure adapted from `pr` in [mattpocock/skills](https://github.com/mattpocock/skills) (MIT, from Dex Horthy's `show-me`).
 
 ## Format
 
@@ -80,3 +80,32 @@ ExaSearchResult only parses highlights and DeepSeekSearchResult only
 parses summary, so advertising contents.text and need_content in
 web_search tool specs invited arguments whose responses were discarded.
 ```
+
+## Pull requests
+
+Write the pull request title and body in one language without a manual `<details>` translation block; [`.github/workflows/translation.yml`](../../../docs/i18n/README.md#github-issues-and-pull-requests) translates between English and Chinese automatically and leaves fenced code blocks untouched. Single-concern pull requests use the [subject line](#subject-line) format as the title; multi-commit pull requests use a concise imperative English summary.
+
+Skip preambles, use domain terms from [glossary.md](../../../docs/glossary.md), and organize the body into three sections:
+
+```markdown
+## Summary
+
+<smallest diagram, diff sketch, or tree that makes the change clear>
+
+## Evidence
+
+- **Before:** <screenshot, command output, or failing test>
+- **After:** <screenshot, command output, or passing test>
+
+## Merge Danger
+
+**Door:** <two-way | one-way — state why when irreversible, such as SQLite migration, wire change, or persisted state>
+**Blast Radius:** <affected runtimes, crates, packages, or user flows, and potential regressions>
+```
+
+Pick the smallest visual in `Summary` beside brief supporting prose, keeping only calls, files, props, states, and interfaces that carry the change:
+
+- **Logic or state flow:** compact pseudocode, or a `diff` block over pseudocode or a call tree when surrounding control flow already exists.
+- **Cross-crate, IPC, or RPC interaction:** a call tree or `mermaid` `sequenceDiagram`.
+- **UI structure:** a component tree (or `diff` component tree) naming owning packages or routes, paired with before/after screenshots in `Evidence`.
+- **Module or directory reorganization:** a shallow file tree (or `diff` tree) with one-phrase responsibilities.

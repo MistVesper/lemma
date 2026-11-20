@@ -3,8 +3,8 @@
 # After bringing both sides to the same meaning, re-record with:
 #   just docs-pairing docs/i18n/README.md
 /bilingual-documentation:
-  en: 3f7053c78dda742f
-  zh: 3823713ee3cfc5e9
+  en: e69150d24c71312a
+  zh: e7ae9eefb5ccda8c
 /bilingual-documentation/the-pairing-contract:
   en: 216a07e26cb4526f
   zh: 32fcb1de500ab043
@@ -17,3 +17,6 @@
 /bilingual-documentation/scope-and-exclusions:
   en: d0f1f0f441d06dfc
   zh: 849f202785b2f02e
+/bilingual-documentation/github-issues-and-pull-requests:
+  en: d748a9bf5260746b
+  zh: fd482f47b90d8bad

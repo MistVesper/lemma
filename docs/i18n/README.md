@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-Lemma's documentation is maintained in English and Simplified Chinese. This page defines the pairing contract, its check, and its scope; [terminology.md](terminology.md) is the terminology source of truth.
+Lemma's documentation is maintained in English and Simplified Chinese. This page defines the pairing contract, its check, and its scope, and the translation of GitHub issues and pull requests; [terminology.md](terminology.md) is the terminology source of truth.
 
 ## The pairing contract
 
@@ -49,3 +49,13 @@ The check compares hashes and heading structure only. A recorded pair can still 
 - Everything under `.agents/skills/` (`README.md`, `SKILL.md`, and `references/`), which tools and agents consume verbatim in English.
 - Generated files.
 - [terminology.md](terminology.md), which is bilingual by construction.
+
+## GitHub issues and pull requests
+
+The Translation workflow (`.github/workflows/translation.yml`) keeps the title and body of each issue and pull request, and each comment on them, in both languages:
+
+- **Triggers:** opening or editing an issue or pull request, or creating or editing a comment, translates that item. A manual dispatch (`gh workflow run translation.yml`) translates every open issue and pull request and all their comments. Items written by bots are skipped, and the title and body of a pull request opened from a fork are translated only by a manual dispatch.
+- **Layout:** the workflow sets an issue or pull request title to English and rewrites the body as the English text, a `---` rule, a collapsed `🌐 中文` block holding the Chinese title and text, and a hidden `<!-- lemma-translation … -->` comment recording a hash of each side. Text written in Chinese moves into the block and its English translation takes its place; text in another language is replaced by its English and Chinese translations.
+- **Edits:** the title and the text above the block form the English side and the block forms the Chinese side, with title and text tracked separately. When the English side differs from its recorded hash, it becomes the new source in whatever language it is written and both sides are regenerated from it, discarding any edit to the block. When only the Chinese side changed, the English side is translated from it. An item whose sides match their record is left untouched.
+- **Failures:** fenced code blocks pass through untranslated. Any translation error, including a translation that loses or adds an inline code span or URL, or a translation into English that still comes back in Chinese after one retry, leaves its item unchanged and fails the run; the other items in the run are still rewritten.
+- **Configuration:** the workflow reaches the model through an OpenAI-compatible `/chat/completions` endpoint set by the Actions variables `TRANSLATE_BASE_URL` and `TRANSLATE_MODEL` and the Actions secret `TRANSLATE_API_KEY`. It runs the script from the default branch, so changes to `scripts/github-translation/` take effect once merged there.

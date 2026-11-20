@@ -29,4 +29,10 @@ just rust-dev
 - [Glossary](docs/glossary.md): shared domain terms.
 - [Development](docs/development.md): setup, desktop and Android builds, Windows notes, and environment variables.
 - [Testing](docs/testing.md): test tiers and coverage.
+- [Bilingual documentation](docs/i18n/README.md): English and Chinese document pairs, their check, and translation of GitHub issues and pull requests.
+- [Design tokens](design/README.md): colors, radii, typography, and motion shared by all clients, and their generated outputs.
+- [Interface strings](i18n/README.md): YAML sources of the clients' UI text and the generated web and Android resources.
+- [Shared UI components](packages/ui/README.md): `@lemma/ui` controls, styling rules, settings pages, and motion utilities.
+- [Brand assets](assets/brand/README.md): brand masters, usage rules, and regeneration.
 - [AGENTS.md](AGENTS.md): repository layout and engineering conventions.
+- [Skills](.agents/skills/README.md): layout and naming of agent skills.

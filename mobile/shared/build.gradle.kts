@@ -1,3 +1,4 @@
+import groovy.json.JsonOutput
 import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -78,15 +79,65 @@ abstract class BufGenerate : Exec() {
 
 val generateProtoBindings =
     tasks.register<BufGenerate>("generateProtoBindings") {
-        workingDir = rootProject.file("proto")
+        val protoDir = rootProject.file("proto")
+        workingDir = protoDir
+        outputDir.set(layout.buildDirectory.dir("generated/source/bufgen"))
+        val outPath =
+            outputDir.get().asFile.toRelativeString(protoDir).replace(File.separatorChar, '/')
+        val connectPluginJar =
+            protoGeneratorsDir
+                .get()
+                .file("protoc-gen-connect-kotlin.jar")
+                .asFile
+                .toRelativeString(protoDir)
+                .replace(File.separatorChar, '/')
+        val template =
+            JsonOutput.toJson(
+                mapOf(
+                    "version" to "v2",
+                    "clean" to true,
+                    "managed" to
+                        mapOf(
+                            "enabled" to true,
+                            "override" to
+                                listOf(
+                                    mapOf(
+                                        "file_option" to "java_multiple_files",
+                                        "value" to true,
+                                    ),
+                                    mapOf(
+                                        "file_option" to "java_package_prefix",
+                                        "value" to "io.github.mistvesper.gen",
+                                    ),
+                                ),
+                        ),
+                    "plugins" to
+                        listOf(
+                            mapOf(
+                                "protoc_builtin" to "java",
+                                "out" to outPath,
+                                "opt" to listOf("lite"),
+                            ),
+                            mapOf(
+                                "protoc_builtin" to "kotlin",
+                                "out" to outPath,
+                                "opt" to listOf("lite"),
+                            ),
+                            mapOf(
+                                "local" to listOf("java", "-jar", connectPluginJar),
+                                "out" to outPath,
+                            ),
+                        ),
+                )
+            )
+        val templateArg = if (hostOs.isWindows) template.replace("\"", "\\\"") else template
         val javaBin = File(System.getProperty("java.home"), "bin")
         val path = listOf(protoGeneratorsDir.get().asFile, javaBin, System.getenv("PATH"))
         environment("PATH", path.joinToString(File.pathSeparator))
-        commandLine("buf", "generate", "--template", "buf.gen.mobile.yaml")
+        commandLine("buf", "generate", "--template", templateArg)
         inputs.files(installProtoGenerators)
         inputs.dir(rootProject.file("proto/lemma"))
-        inputs.file(rootProject.file("proto/buf.gen.mobile.yaml"))
-        outputDir.set(layout.buildDirectory.dir("generated/source/bufgen"))
+        inputs.file(rootProject.file("proto/buf.yaml"))
     }
 
 kotlin {

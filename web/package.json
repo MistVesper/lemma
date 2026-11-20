@@ -13,7 +13,7 @@
         "gen": "npm run gen:tokens && npm run gen:i18n && npm run gen:proto",
         "gen:tokens": "node ../scripts/design-token/gen-tokens.ts",
         "gen:i18n": "node ../scripts/i18n/gen-i18n.ts",
-        "gen:proto": "cd ../proto && buf generate",
+        "gen:proto": "node ../scripts/proto/gen-proto.ts",
         "predev": "npm run gen",
         "dev": "vite",
         "prebuild": "npm run gen",

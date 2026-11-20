@@ -19,7 +19,6 @@
             ]
         },
         "web": {
-            "ignoreBinaries": ["buf"],
             "ignoreDependencies": [
                 "@bufbuild/protoc-gen-es",
                 "@ianvs/prettier-plugin-sort-imports",

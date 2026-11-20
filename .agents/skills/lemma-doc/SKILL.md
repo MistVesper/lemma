@@ -51,7 +51,7 @@ Add or restore prose when code, types, and structure do not communicate a requir
 
 1. Apply [document structure](../../../docs/AGENTS.md#document-structure) and tier placement: move descendant-owned detail to its owner and replace hand-written catalogs with links.
 2. Hunt the [slop checklist](../../../docs/AGENTS.md#the-slop-checklist) and chain-of-thought leakage using the taxonomy and recall probes in [references/cot-leakage.md](references/cot-leakage.md).
-3. If removing prose would change a promised behavior rather than its explanation, propose the behavior change first ([lemma-find-simplifications](../lemma-find-simplifications/SKILL.md)).
+3. If removing prose would change a promised behavior rather than its explanation, propose the behavior change first ([lemma-prune](../lemma-prune/SKILL.md)).
 
 ## Validation
 

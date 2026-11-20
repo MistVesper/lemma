@@ -4,6 +4,17 @@ package lemma.v1;
 
 import "google/protobuf/timestamp.proto";
 
+service SessionService {
+  rpc ListSessions(ListSessionsRequest) returns (ListSessionsResponse);
+  rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
+  rpc RenameSession(RenameSessionRequest) returns (RenameSessionResponse);
+  rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse);
+  rpc SetSessionLeaf(SetSessionLeafRequest) returns (SetSessionLeafResponse);
+  rpc SetMessageLabel(SetMessageLabelRequest) returns (SetMessageLabelResponse);
+  // Permanently deletes a session and all of its messages.
+  rpc DeleteSession(DeleteSessionRequest) returns (DeleteSessionResponse);
+}
+
 enum MessageStatus {
   MESSAGE_STATUS_UNSPECIFIED = 0;
   MESSAGE_STATUS_STREAMING = 1;
@@ -17,11 +28,11 @@ message Session {
   string title = 2;
   // Active leaf message id; absent when the session has no active path.
   optional string leaf_id = 3;
-  google.protobuf.Timestamp updated_at = 7;
+  google.protobuf.Timestamp updated_at = 4;
   // Absolute directory the session's tools run in; absent for a session that runs in a generated workspace.
-  optional string directory = 8;
+  optional string directory = 5;
   // User message id of the turn currently running on this session, when any.
-  optional string active_message_id = 9;
+  optional string active_message_id = 6;
 }
 
 message ToolCall {
@@ -38,7 +49,7 @@ message ToolCall {
 // Tool execution metadata for tool-role messages; payload text resides in content.
 message ToolResultMeta {
   string tool_call_id = 1;
-  bool is_error = 3;
+  bool is_error = 2;
 }
 
 message Message {
@@ -52,19 +63,17 @@ message Message {
   string model = 6;
   MessageStatus status = 7;
   google.protobuf.Timestamp created_at = 8;
-  reserved 9;
-  reserved "updated_at";
   // Full chain-of-thought text concatenated from thinking blocks when produced by the model.
-  string thinking = 11;
+  string thinking = 9;
   // Error description populated when status is set to error.
-  string error = 12;
-  repeated ToolCall tool_calls = 13;
-  ToolResultMeta tool_result = 14;
+  string error = 10;
+  repeated ToolCall tool_calls = 11;
+  ToolResultMeta tool_result = 12;
   // Server instant of the first thinking delta; absent when unrecorded.
-  google.protobuf.Timestamp thinking_started_at = 15;
+  google.protobuf.Timestamp thinking_started_at = 13;
   // Server instant of the first non-thinking event after thinking began.
-  google.protobuf.Timestamp thinking_finished_at = 16;
-  optional string label = 17;
+  google.protobuf.Timestamp thinking_finished_at = 14;
+  optional string label = 15;
 }
 
 message ListSessionsRequest {}
@@ -99,9 +108,9 @@ message ListMessagesResponse {
   // Complete message tree of the session, ordered oldest first.
   repeated Message messages = 1;
   // Active leaf message id of the session, when set.
-  optional string leaf_id = 3;
+  optional string leaf_id = 2;
   // User message id of the turn currently running on this session, when any.
-  optional string active_message_id = 4;
+  optional string active_message_id = 3;
 }
 
 message SetSessionLeafRequest {
@@ -130,14 +139,3 @@ message DeleteSessionRequest {
 }
 
 message DeleteSessionResponse {}
-
-service SessionService {
-  rpc ListSessions(ListSessionsRequest) returns (ListSessionsResponse);
-  rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
-  rpc RenameSession(RenameSessionRequest) returns (RenameSessionResponse);
-  rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse);
-  rpc SetSessionLeaf(SetSessionLeafRequest) returns (SetSessionLeafResponse);
-  rpc SetMessageLabel(SetMessageLabelRequest) returns (SetMessageLabelResponse);
-  // Permanently deletes a session and all of its messages.
-  rpc DeleteSession(DeleteSessionRequest) returns (DeleteSessionResponse);
-}

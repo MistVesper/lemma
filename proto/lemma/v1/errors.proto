@@ -11,9 +11,9 @@ enum ErrorReason {
   ERROR_REASON_PROVIDER_FIELDS_REQUIRED = 10;
   ERROR_REASON_API_FORMAT_INVALID = 11; // API format unspecified, or not served by the predefined provider
   ERROR_REASON_PROVIDER_NOT_FOUND = 12;
-  ERROR_REASON_PROVIDER_IDENTIFIER_INVALID = 14; // Identifier must contain valid non-empty ASCII characters
-  ERROR_REASON_PROVIDER_IDENTIFIER_TAKEN = 15;
-  ERROR_REASON_PROVIDER_KEY_REQUIRED = 16; // Enabling a predefined provider requires a saved API key
+  ERROR_REASON_PROVIDER_IDENTIFIER_INVALID = 13; // Identifier must contain valid non-empty ASCII characters
+  ERROR_REASON_PROVIDER_IDENTIFIER_TAKEN = 14;
+  ERROR_REASON_PROVIDER_KEY_REQUIRED = 15; // Enabling a predefined provider requires a saved API key
 
   // Session and messages
   ERROR_REASON_ID_INVALID = 20; // Shared invalid UUID identifier error
@@ -22,8 +22,8 @@ enum ErrorReason {
   ERROR_REASON_DIRECTORY_NOT_FOUND = 23; // The session directory is not an absolute path to an existing directory
   ERROR_REASON_MESSAGE_NOT_FOUND = 24;
   ERROR_REASON_INVALID_BRANCH_POINT = 25; // Target message cannot serve as a turn boundary or branch parent
-  ERROR_REASON_CONTENT_REQUIRED = 28;
-  ERROR_REASON_MODEL_REQUIRED = 29;
+  ERROR_REASON_CONTENT_REQUIRED = 26;
+  ERROR_REASON_MODEL_REQUIRED = 27;
 
   // Agent
   ERROR_REASON_TURN_NOT_RUNNING = 30; // No running turn for the message: it ended or never started

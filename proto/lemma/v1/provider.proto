@@ -2,6 +2,22 @@ syntax = "proto3";
 
 package lemma.v1;
 
+service ProviderService {
+  // Lists every provider, adding the missing predefined providers first.
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
+  rpc CreateCustomProvider(CreateCustomProviderRequest) returns (CreateCustomProviderResponse);
+  rpc UpdateCustomProvider(UpdateCustomProviderRequest) returns (UpdateCustomProviderResponse);
+  // Enabling requires a saved API key; the default format must be one the provider serves.
+  rpc UpdatePredefinedProvider(UpdatePredefinedProviderRequest) returns (UpdatePredefinedProviderResponse);
+  rpc DeleteCustomProvider(DeleteCustomProviderRequest) returns (DeleteCustomProviderResponse);
+  rpc FetchModels(FetchModelsRequest) returns (FetchModelsResponse);
+  // Sends a minimal generation request to confirm the provider answers; a predefined provider uses its default format.
+  rpc CheckProvider(CheckProviderRequest) returns (CheckProviderResponse);
+  rpc ListWebProviders(ListWebProvidersRequest) returns (ListWebProvidersResponse);
+  rpc UpdateWebProvider(UpdateWebProviderRequest) returns (UpdateWebProviderResponse);
+  rpc SetWebProviderOrder(SetWebProviderOrderRequest) returns (SetWebProviderOrderResponse);
+}
+
 // Wire format of one model request.
 enum ApiFormat {
   API_FORMAT_UNSPECIFIED = 0;
@@ -180,20 +196,4 @@ message SetWebProviderOrderRequest {
 
 message SetWebProviderOrderResponse {
   repeated WebProvider providers = 1;
-}
-
-service ProviderService {
-  // Lists every provider, adding the missing predefined providers first.
-  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
-  rpc CreateCustomProvider(CreateCustomProviderRequest) returns (CreateCustomProviderResponse);
-  rpc UpdateCustomProvider(UpdateCustomProviderRequest) returns (UpdateCustomProviderResponse);
-  // Enabling requires a saved API key; the default format must be one the provider serves.
-  rpc UpdatePredefinedProvider(UpdatePredefinedProviderRequest) returns (UpdatePredefinedProviderResponse);
-  rpc DeleteCustomProvider(DeleteCustomProviderRequest) returns (DeleteCustomProviderResponse);
-  rpc FetchModels(FetchModelsRequest) returns (FetchModelsResponse);
-  // Sends a minimal generation request to confirm the provider answers; a predefined provider uses its default format.
-  rpc CheckProvider(CheckProviderRequest) returns (CheckProviderResponse);
-  rpc ListWebProviders(ListWebProvidersRequest) returns (ListWebProvidersResponse);
-  rpc UpdateWebProvider(UpdateWebProviderRequest) returns (UpdateWebProviderResponse);
-  rpc SetWebProviderOrder(SetWebProviderOrderRequest) returns (SetWebProviderOrderResponse);
 }

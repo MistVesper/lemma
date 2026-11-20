@@ -25,6 +25,15 @@ These rules supplement the repo-wide [conventions](../AGENTS.md#conventions). Th
 - **Reuse `@lemma/ui` controls** before writing new ones (`packages/ui/src/index.ts`); promote shared visual differences to a variant instead of restyling a copy.
 - **Settings pages** compose `SettingsPage`, `SettingsSection`, `SettingsSectionCompact`, `SettingsField`, and `SettingsRow` without adding outer layout ([settings rules](../packages/ui/README.md#settings-pages)).
 
+## Components and state
+
+- **Encapsulation and spacing:** components in `src/` (and `packages/ui/src/components/composites/`) take no `className` or `style` prop unless headless. Parents own outer margin, `gap`, and conditional mounting when they already know a child is empty; components own only internal padding and content spacing.
+- **Single presentation and workflow:** split distinct presentations or workflows (such as create vs. edit forms) into separate components instead of switching with a `mode` prop; extract shared stateful behavior into a hook and JSX-free logic into a pure function.
+- **Explicit props and states:** keep props required unless callers omit them, avoid overlapping handlers or enable flags beside nullable handlers, type element spreads with `Pick<>` excluding props the component sets itself (never `Omit<>`), and model multi-state outcomes as discriminated unions.
+- **Store-owned loading and seeding:** load daemon data through the feature's `store.ts` and `createLoadedHook` (`src/store/loaded-hook.ts`). Gate stateful forms on `loaded` in the parent (rendering `Skeleton` until ready) so children mount with complete initial values; pass `key` only when entity switches should discard drafts.
+- **Render derivation and event actions:** compute derived values during render instead of mirroring state in effects, and run submits, RPC mutations, navigation, and toasts in event handlers calling async store actions (or `getState()` outside React).
+- **Effects and memoization:** reserve `useEffect` for external systems (DOM, browser listeners, timers, `platform` bridge calls; use `useSyncExternalStore` for rendered subscriptions) with symmetric cleanup and never hidden behind a wrapper hook. Add `useMemo` or `useCallback` only for measured cost or required referential stability.
+
 ## Boot sync and generated files
 
 `src/gen/`, `src/i18n/locales/`, and `@lemma/ui`'s generated tokens are Git-ignored and regenerated automatically by npm scripts; edit `proto/`, `design/tokens.json`, or `i18n/` instead.

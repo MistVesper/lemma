@@ -7,7 +7,7 @@ description: Use when looking for architectural friction in Lemma code — shall
 
 Surface architectural friction and propose deepening opportunities: refactors that turn shallow modules into deep ones, so behavior, bugs, and tests concentrate behind one small interface. Adapted from `improve-codebase-architecture` and `codebase-design` in [mattpocock/skills](https://github.com/mattpocock/skills) (MIT); the implementation plan and review steps from `ai-slop-cleaner` in [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) (MIT).
 
-This skill restructures code that stays; [lemma-find-simplifications](../lemma-find-simplifications/SKILL.md) removes obligations nobody needs. Run that one first when a candidate may simply be deletable.
+This skill restructures code that stays; [lemma-prune](../lemma-prune/SKILL.md) removes obligations nobody needs, and [lemma-refactor](../lemma-refactor/SKILL.md) cleans up implementation without changing module interfaces. Run `lemma-prune` first when a candidate may simply be deletable.
 
 ## Vocabulary
 
@@ -46,13 +46,10 @@ Once the user picks a candidate, interview the user through its decision tree un
 Place decisions as they settle, after the user approves each write:
 
 - A new domain term the deepened module is named after goes into `docs/glossary.md` and its Chinese pair through [lemma-translate-docs](../lemma-translate-docs/SKILL.md).
-- A rejection with a reason a future review would need belongs in architecture.md when it constrains a design, or in the commit body of the change that settles it.
-- A candidate the user accepts but defers becomes a GitHub issue, never a `TODO` in code.
+- A rejection with rationale a future review would need belongs in `docs/architecture.md` when it constrains a design, or in the commit body that settles it.
 
 ## Implementing
 
-Implementation is a separate request. Before the first edit, write the plan in the conversation from the grilled decisions: the modules merged or moved, the interface as agreed, the call sites migrated, the tests deleted and the tests written at the new interface, and the check for each step.
+Implementation is a separate request. Before editing, write the plan in the conversation from the settled decisions: modules merged or moved, the agreed interface, migrated call sites, shallow-module tests replaced by tests at the new interface ([references/deepening.md](references/deepening.md#testing-replace-dont-layer)), and the verification check per step ([lemma-pre-push-checks](../lemma-pre-push-checks/SKILL.md)).
 
-Then replace the shallow modules' tests with tests at the new interface (see [references/deepening.md](references/deepening.md#testing-replace-dont-layer)), update affected docs and doc comments in the same change, and select checks through [lemma-pre-push-checks](../lemma-pre-push-checks/SKILL.md).
-
-When done, hand the diff, plan, and executed checks to a fresh read-only pass (a subagent when available) to verify the agreed interface, complete caller migration, replaced tests, and updated docs and `docs/glossary.md`. Route any follow-ups back to a writing pass rather than self-approving.
+When done, hand the diff, plan, and executed checks to a fresh read-only pass (a subagent when available) to verify the agreed interface, complete caller migration, replaced tests, and updated docs and `docs/glossary.md`; route follow-ups back to a writing pass.

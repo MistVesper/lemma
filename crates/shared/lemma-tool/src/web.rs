@@ -1,5 +1,3 @@
-//! Web search and fetch tools over ordered provider backends.
-
 mod web_fetch_backend;
 mod web_fetch_tool;
 mod web_search_backend;

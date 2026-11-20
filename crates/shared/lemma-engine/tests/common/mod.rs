@@ -1,6 +1,3 @@
-//! An engine over a temporary data directory, called through
-//! `InProcessTransport` with Connect JSON requests.
-
 #![allow(dead_code)]
 
 use std::env;
@@ -42,6 +39,8 @@ pub(crate) struct Reply {
     pub(crate) body: Value,
 }
 
+/// An engine over a temporary data directory, called through
+/// `InProcessTransport` with Connect JSON requests.
 pub(crate) struct TestEngine {
     engine: Option<Engine>,
     transport: InProcessTransport,

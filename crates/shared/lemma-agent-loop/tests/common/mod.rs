@@ -1,6 +1,3 @@
-//! Fixtures the turn tests share: a migrated SQLite database holding one
-//! session, and the turn input that continues it.
-
 use std::error::Error;
 
 use lemma_agent_loop::TurnInput;
@@ -10,12 +7,14 @@ use lemma_session::{LastModel, SessionService};
 use sqlx::SqlitePool;
 use uuid::Uuid;
 
+/// Creates one session in `db`, a migrated SQLite database.
 pub(crate) async fn new_session(db: &SqlitePool) -> Result<(SessionService, Uuid), Box<dyn Error>> {
     let sessions = SessionService::new(db.clone());
     let session_id = sessions.create(None).await?.id;
     Ok((sessions, session_id))
 }
 
+/// The turn input that continues the session `session_id`.
 pub(crate) fn input(session_id: Uuid) -> TurnInput {
     TurnInput {
         session_id,

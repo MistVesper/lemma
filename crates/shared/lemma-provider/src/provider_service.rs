@@ -1,6 +1,3 @@
-//! Provider domain service: validation, API-key sealing, and persistence
-//! over a database.
-
 mod connection_check;
 mod create_input;
 mod live_connection;

@@ -1,6 +1,3 @@
-//! Session business flows over a database: lifecycle (create, rename,
-//! delete), message tree loading, and the reads and writes a turn needs.
-
 mod message_update;
 mod messages;
 mod session_tree;

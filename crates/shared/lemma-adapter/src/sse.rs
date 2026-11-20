@@ -1,13 +1,3 @@
-//! SSE line decoding shared by the adapters.
-//!
-//! Beyond turning `data:` payloads into parser events, this layer
-//! synthesizes the canonical block lifecycle: `TextDelta` opens a text block
-//! with `TextStart`, `ThinkingDelta` opens a thinking block with
-//! `ThinkingStart` (collecting any emitted signature fragments), an open
-//! block closes before a different block kind starts, and any open block
-//! closes ahead of the terminal `Done`. `Done` is emitted exactly once, at
-//! the terminal event or at EOF.
-
 use std::mem;
 use std::pin::Pin;
 
@@ -171,6 +161,13 @@ impl State {
 
 /// Turns an upstream byte stream into canonical events. Only `data:` lines
 /// are considered.
+///
+/// Beyond the parser's events, the stream synthesizes the canonical block
+/// lifecycle: `TextDelta` opens a text block with `TextStart`,
+/// `ThinkingDelta` opens a thinking block with `ThinkingStart` (collecting
+/// any emitted signature fragments), an open block closes before a different
+/// block kind starts, and any open block closes ahead of the terminal `Done`.
+/// `Done` is emitted exactly once, at the terminal event or at EOF.
 pub(crate) fn events_from_sse(bytes: ByteStream, parser: impl SseParser) -> BoxEventStream {
     let s = stream::try_unfold(
         (

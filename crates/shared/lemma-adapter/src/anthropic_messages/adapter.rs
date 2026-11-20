@@ -8,6 +8,7 @@ use super::parser::{Block, Parser};
 
 const MAX_TOKENS: u32 = 8192;
 
+/// Adapter for the Anthropic Messages API.
 #[derive(Debug)]
 pub(crate) struct AnthropicMessages<T> {
     transport: T,

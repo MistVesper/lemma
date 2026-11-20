@@ -1,5 +1,3 @@
-//! Error type for the provider domain.
-
 use thiserror::Error;
 
 /// Errors surfaced by the provider domain. The RPC shell maps these to

@@ -1,5 +1,3 @@
-//! The root-to-leaf path and turn-boundary checks over a session's message tree.
-
 use std::collections::HashMap;
 
 use uuid::Uuid;

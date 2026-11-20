@@ -1,5 +1,3 @@
-//! Error type for the session domain.
-
 use thiserror::Error;
 
 /// Errors surfaced by the session domain. The RPC shell maps these

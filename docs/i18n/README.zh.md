@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-Lemma 的文档以英文与简体中文两种语言维护。本页定义配对契约、它的检查及适用范围；[terminology.md](terminology.md) 是术语的权威来源。
+Lemma 的文档以英文与简体中文两种语言维护。本页定义配对契约、它的检查及适用范围，以及 GitHub issue 与 PR 的翻译；[terminology.md](terminology.md) 是术语的权威来源。
 
 ## 配对契约
 
@@ -49,3 +49,13 @@ Lemma 的文档以英文与简体中文两种语言维护。本页定义配对�
 - `.agents/skills/` 下的全部文件（`README.md`、`SKILL.md` 及 `references/`），工具与 agent 按英文原样读取。
 - 生成文件。
 - [terminology.md](terminology.md)，它本身就是双语的。
+
+## GitHub issue 与 PR
+
+Translation 工作流（`.github/workflows/translation.yml`）让每个 issue 与 PR 的标题和正文，以及其下的每条评论，都同时具备两种语言：
+
+- **触发**：打开或编辑 issue 或 PR、创建或编辑评论时，翻译对应条目。手动触发（`gh workflow run translation.yml`）翻译所有未关闭的 issue 与 PR 及其全部评论。跳过 bot 撰写的条目；从 fork 打开的 PR，其标题与正文只在手动触发时翻译。
+- **布局**：工作流把 issue 或 PR 的标题设为英文，并把正文改写为英文正文、一条 `---` 分隔线、包含中文标题与正文的折叠区块 `🌐 中文`，以及记录两侧哈希的隐藏注释 `<!-- lemma-translation … -->`。用中文撰写的内容移入区块，原位置换成其英文译文；用其他语言撰写的内容替换为英文与中文两份译文。
+- **编辑**：标题与区块上方的正文构成英文侧，区块构成中文侧，标题与正文分别跟踪。英文侧与记录的哈希不一致时，它按实际书写的语言成为新的源文本，两侧都从它重新生成，区块内的修改随之丢弃。只有中文侧变化时，英文侧由中文侧翻译生成。两侧都与记录一致的条目保持不变。
+- **失败**：围栏代码块原样保留，不参与翻译。任何翻译错误，包括译文丢失或多出行内代码或 URL，以及译成英文的结果重试一次后仍是中文，都会让该条目保持不变并使本次运行失败；同一次运行中的其他条目照常改写。
+- **配置**：工作流通过 OpenAI 兼容的 `/chat/completions` 端点访问模型，端点由 Actions 变量 `TRANSLATE_BASE_URL`、`TRANSLATE_MODEL` 与 Actions secret `TRANSLATE_API_KEY` 配置。它始终从默认分支运行脚本，因此 `scripts/github-translation/` 的修改合入默认分支后才生效。

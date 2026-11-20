@@ -1,5 +1,3 @@
-//! Serving the Connect router and the embedded web build.
-
 use std::io;
 
 use axum::Router;

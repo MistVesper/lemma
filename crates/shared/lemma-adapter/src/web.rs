@@ -1,5 +1,3 @@
-//! Web search and fetch backends over an injected HTTP transport.
-
 mod deepseek;
 mod exa;
 mod native;

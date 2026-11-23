@@ -65,7 +65,7 @@
                     },
                     {
                         "pattern": "(^|:)text-(xs|sm|base|lg|xl|[2-9]xl)(/|$)",
-                        "message": "use a type role: text-caption, text-small, text-body, text-reading, text-title, or text-display"
+                        "message": "use a type role: text-caption, text-small, text-body, text-reading, text-title, text-heading, or text-display"
                     },
                     {
                         "pattern": "(^|:)rounded(-(t|r|b|l|s|e|tl|tr|br|bl|ss|se|es|ee))?-(xs|xl|2xl|3xl|4xl|\\[(?!inherit\\]).*\\])$",

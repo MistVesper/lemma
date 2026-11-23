@@ -31,7 +31,11 @@
         "packages/ui": {
             "project": ["src/**/*.{ts,tsx}"],
             "includeEntryExports": true,
-            "ignoreDependencies": ["@ianvs/prettier-plugin-sort-imports"]
+            "ignoreDependencies": [
+                "@fontsource-variable/noto-sans",
+                "@fontsource/maple-mono",
+                "@ianvs/prettier-plugin-sort-imports"
+            ]
         }
     }
 }

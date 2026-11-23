@@ -23,18 +23,17 @@ Two control pairs are easy to confuse:
 
 Feature code styles exclusively through semantic theme utilities. Exact color, radius, type-scale, and motion values live in [design/tokens.json](../../design/README.md); `src/styles/tokens.css` adds font stacks and shadows and maps them into Tailwind.
 
-| Type role              | Use                                                              |
-| ---------------------- | ---------------------------------------------------------------- |
-| `text-caption`         | Timestamps, group labels, code-block labels                      |
-| `text-small`           | List rows, sidebar items, tool rows, descriptions                |
-| `text-body`            | Default interface text, buttons, menu items, inputs from `md` up |
-| `text-reading`         | Message text, composer, inputs below `md`                        |
-| `text-title`           | Section and dialog titles                                        |
-| `text-display`         | Home and settings page headings                                  |
-| `text-wordmark`        | Sidebar brand wordmark                                           |
-| `text-wordmark-splash` | Boot and splash brand wordmark                                   |
+| Type role      | Use                                                     |
+| -------------- | ------------------------------------------------------- |
+| `text-caption` | Timestamps, group labels, shortcut badges, code labels  |
+| `text-small`   | List rows, sidebar items, picker triggers, descriptions |
+| `text-body`    | Default interface text, buttons, menu items, inputs     |
+| `text-reading` | Message text and composer                               |
+| `text-title`   | Section and dialog titles, Markdown `h3`                |
+| `text-heading` | Secondary headings and Markdown `h2`                    |
+| `text-display` | Page headings and Markdown `h1`                         |
 
-- **Brand font:** `font-brand` sets `"NewCM"` (serif fallback) for wordmarks and brand headings; all other text uses the interface sans.
+- **Fonts and wordmark:** `font-sans` uses `Noto Sans` and `font-mono` uses `Maple Mono NF CN`, both with CJK sans-serif fallbacks. `Wordmark` renders the vector brand wordmark with its trailing brand dot.
 - **Radius:** `rounded-sm` for badges, checkboxes, and controls inside inputs; `rounded-md` for buttons, inputs, list rows, menu items, and code blocks; `rounded-lg` for cards, popovers, dialogs, the composer, and the main panel; `rounded-full` for avatars, switches, and pills.
 - **Sizes:** controls use `h-7`, `h-8` (default), or `h-9` (`h-6` only inside inputs); one row uses one height. List rows use `h-8` with `text-small` (`Button variant="row"`, active state via `data-active`).
 - **Hover and selection:** `bg-accent` for row/menu/ghost/outline hover; `bg-selected` for active rows and pressed filter pills, paired with `text-foreground` or `text-muted-foreground`.

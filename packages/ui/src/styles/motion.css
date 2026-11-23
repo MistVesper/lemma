@@ -195,10 +195,10 @@
 html.theme-transition,
 html.theme-transition * {
     transition:
-        color 240ms var(--motion-easing-move),
-        background-color 240ms var(--motion-easing-move),
-        border-color 240ms var(--motion-easing-move),
-        box-shadow 240ms var(--motion-easing-move) !important;
+        color var(--motion-duration-medium) var(--motion-easing-move),
+        background-color var(--motion-duration-medium) var(--motion-easing-move),
+        border-color var(--motion-duration-medium) var(--motion-easing-move),
+        box-shadow var(--motion-duration-medium) var(--motion-easing-move) !important;
 }
 @media (prefers-reduced-motion: reduce) {
     *,

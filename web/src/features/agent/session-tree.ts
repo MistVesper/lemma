@@ -54,7 +54,6 @@ export function buildSessionTree(
     const emitList = (
         nodes: TreeNode[],
         prefixRails: TreeRailSegment[],
-        emittedInCol: boolean,
         hasParent: boolean,
     ) => {
         const [only, second] = nodes;
@@ -69,12 +68,11 @@ export function buildSessionTree(
                 label: only.label,
                 meta: only.meta,
                 rails: prefixRails,
-                hasTopSpine: hasParent && emittedInCol,
-                hasBottomSpine: only.children.length > 0,
+                hasTopSpine: hasParent,
                 onPath: only.onPath,
                 isLeaf: only.isLeaf,
             });
-            emitList(only.children, prefixRails, true, true);
+            emitList(only.children, prefixRails, true);
             return;
         }
         const last = nodes.length - 1;
@@ -95,12 +93,11 @@ export function buildSessionTree(
                 child.children,
                 [...prefixRails, idx === last ? "empty" : "bar"],
                 true,
-                true,
             );
         }
     };
 
-    emitList(roots, [], false, false);
+    emitList(roots, [], false);
     return { rows, pathCount };
 }
 

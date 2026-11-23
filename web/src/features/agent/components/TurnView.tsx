@@ -1,11 +1,9 @@
 import { cn, formatClockTime, formatDuration, Markdown } from "@lemma/ui";
-import type { TFunction } from "i18next";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ConversationTurn } from "../active-path";
-import { stepVerb, type TurnStep } from "../step-details";
-import { lastPathSegment } from "../tool-output";
+import { buildStepsSummary, stepVerb, type TurnStep } from "../step-details";
 import type { UiMessage } from "../ui-message";
 import { StepTimeline, type StepTimelineRow } from "./StepTimeline";
 import { TurnReplyActions } from "./TurnReplyActions";
@@ -18,76 +16,6 @@ interface TurnViewProps {
     onInspectCode: (code: string, language: string) => void;
     onRegenerate?:
         ((turn: ConversationTurn, reply: UiMessage) => void) | undefined;
-}
-
-function summarizeToolStep(step: TurnStep, t: TFunction): string {
-    switch (step.toolName) {
-        case "read_file":
-            return t("agent.summaryRead", {
-                target:
-                    step.argument === ""
-                        ? "read_file"
-                        : lastPathSegment(step.argument),
-            });
-        case "write_file":
-            return t("agent.summaryWrote", {
-                target:
-                    step.argument === ""
-                        ? "write_file"
-                        : lastPathSegment(step.argument),
-            });
-        case "bash":
-            return t("agent.summaryRan", {
-                target: step.argument === "" ? "bash" : step.argument,
-            });
-        case "web_search":
-            return t("agent.summarySearchedWeb");
-        case "web_fetch":
-            return t("agent.summaryFetchedWeb");
-        default:
-            return step.toolName ?? "";
-    }
-}
-
-function buildStepsSummary(steps: TurnStep[], t: TFunction): string {
-    const parts: string[] = [];
-    let thinkingMs = 0;
-    let hasThinkingDuration = false;
-    let hasThinking = false;
-    let thinkingRunning = false;
-
-    for (const step of steps) {
-        if (step.kind === "thinking") {
-            hasThinking = true;
-            if (step.state === "running") {
-                thinkingRunning = true;
-            }
-            if (step.startedAt !== undefined && step.finishedAt !== undefined) {
-                hasThinkingDuration = true;
-                thinkingMs += Math.max(0, step.finishedAt - step.startedAt);
-            }
-            continue;
-        }
-        const label = summarizeToolStep(step, t);
-        if (label !== "" && !parts.includes(label)) {
-            parts.push(label);
-        }
-    }
-
-    if (hasThinking) {
-        const thinkingLabel = thinkingRunning
-            ? t("agent.thinkingInProgress")
-            : hasThinkingDuration
-              ? t("agent.thoughtDuration", {
-                    duration: formatDuration(thinkingMs),
-                })
-              : t("agent.thinking");
-        parts.unshift(thinkingLabel);
-    }
-
-    return parts.length > 0
-        ? parts.join(" · ")
-        : t("agent.stepCount", { count: steps.length });
 }
 
 /** Single conversation turn with sticky user card, collapsible step timeline, final reply, and settled actions. */
@@ -131,7 +59,7 @@ export function TurnView({
                         : (step.toolName ?? "")
                     : step.argument,
             plainArgument: step.plainArgument,
-            warn: step.warn,
+            warn: step.isError,
             active: activePaneStepId === step.id,
             onSelect: () => onInspectStep(step),
             meta,

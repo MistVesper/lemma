@@ -1,6 +1,8 @@
+import { formatDuration } from "@lemma/ui";
 import type { TFunction } from "i18next";
 
 import {
+    lastPathSegment,
     nonEmptyString,
     parseJsonObject,
     parseToolOutput,
@@ -22,7 +24,6 @@ export interface TurnStep {
     via?: string | undefined;
     isError: boolean;
     selfHealed: boolean;
-    warn: boolean;
     state: "running" | "done";
     detail: DetailPayload;
 }
@@ -76,7 +77,6 @@ export function buildTurnSteps(assistantSteps: UiMessage[]): TurnStep[] {
                 via: parsed.via,
                 isError: call.isError,
                 selfHealed: call.isError && hasLaterSuccess,
-                warn: call.isError,
                 state: call.state,
                 detail: parsed.detail,
             });
@@ -105,7 +105,6 @@ function thinkingStep(item: UiMessage): TurnStep {
         finishedAt: item.thinkingFinishedAt,
         isError: false,
         selfHealed: false,
-        warn: false,
         state,
         detail: { kind: "prose", text: item.thinking },
     };
@@ -127,6 +126,77 @@ export function stepVerb(step: TurnStep, t: TFunction): string {
             return t("agent.verbSearch");
         case "web_fetch":
             return t("agent.verbFetch");
+        default:
+            return step.toolName ?? "";
+    }
+}
+
+/** Summary line for a collapsed step timeline: thinking state first, then each distinct tool summary. */
+export function buildStepsSummary(steps: TurnStep[], t: TFunction): string {
+    const parts: string[] = [];
+    let thinkingMs = 0;
+    let hasThinkingDuration = false;
+    let hasThinking = false;
+    let thinkingRunning = false;
+
+    for (const step of steps) {
+        if (step.kind === "thinking") {
+            hasThinking = true;
+            if (step.state === "running") {
+                thinkingRunning = true;
+            }
+            if (step.startedAt !== undefined && step.finishedAt !== undefined) {
+                hasThinkingDuration = true;
+                thinkingMs += Math.max(0, step.finishedAt - step.startedAt);
+            }
+            continue;
+        }
+        const label = summarizeToolStep(step, t);
+        if (label !== "" && !parts.includes(label)) {
+            parts.push(label);
+        }
+    }
+
+    if (hasThinking) {
+        const thinkingLabel = thinkingRunning
+            ? t("agent.thinkingInProgress")
+            : hasThinkingDuration
+              ? t("agent.thoughtDuration", {
+                    duration: formatDuration(thinkingMs),
+                })
+              : t("agent.thinking");
+        parts.unshift(thinkingLabel);
+    }
+
+    return parts.length > 0
+        ? parts.join(" · ")
+        : t("agent.stepCount", { count: steps.length });
+}
+
+function summarizeToolStep(step: TurnStep, t: TFunction): string {
+    switch (step.toolName) {
+        case "read_file":
+            return t("agent.summaryRead", {
+                target:
+                    step.argument === ""
+                        ? "read_file"
+                        : lastPathSegment(step.argument),
+            });
+        case "write_file":
+            return t("agent.summaryWrote", {
+                target:
+                    step.argument === ""
+                        ? "write_file"
+                        : lastPathSegment(step.argument),
+            });
+        case "bash":
+            return t("agent.summaryRan", {
+                target: step.argument === "" ? "bash" : step.argument,
+            });
+        case "web_search":
+            return t("agent.summarySearchedWeb");
+        case "web_fetch":
+            return t("agent.summaryFetchedWeb");
         default:
             return step.toolName ?? "";
     }

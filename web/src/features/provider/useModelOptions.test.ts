@@ -78,13 +78,9 @@ it("offers models of enabled providers and returns all providers", () => {
     const { result } = renderHook(() => useModelOptions());
 
     expect(result.current.options).toEqual([
-        {
-            providerId: "deepseek-id",
-            providerName: "DeepSeek",
-            model: "deepseek-flash",
-        },
-        { providerId: "a", providerName: "Acme", model: "m1" },
-        { providerId: "a", providerName: "Acme", model: "m2" },
+        { providerId: "deepseek-id", model: "deepseek-flash" },
+        { providerId: "a", model: "m1" },
+        { providerId: "a", model: "m2" },
     ]);
     expect(result.current.providers).toEqual(providers);
     expect(rpc.listProviders).not.toHaveBeenCalled();

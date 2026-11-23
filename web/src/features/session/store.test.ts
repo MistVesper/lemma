@@ -24,7 +24,7 @@ const session = (
     title: string,
     updatedMs?: number,
     directory?: string,
-    extra?: { leafId?: string; activeMessageId?: string },
+    extra?: { activeMessageId?: string },
 ) =>
     create(SessionSchema, {
         id,
@@ -44,7 +44,6 @@ beforeEach(async () => {
     rpc.listSessions.mockResolvedValue({
         sessions: [
             session("c1", "First", 5000, "C:\\work\\first", {
-                leafId: "m2",
                 activeMessageId: "m3",
             }),
             session("c2", ""),
@@ -53,7 +52,7 @@ beforeEach(async () => {
     await refreshSessions();
 });
 
-it("loads the list with update times, leafId, activeMessageId, and zero when unknown", () => {
+it("loads the list with update times, activeMessageId, and zero when unknown", () => {
     expect(useSessionStore.getState().loaded).toBe(true);
     expect(list()).toEqual([
         {
@@ -61,7 +60,6 @@ it("loads the list with update times, leafId, activeMessageId, and zero when unk
             title: "First",
             updatedAtMs: 5000,
             directory: "C:\\work\\first",
-            leafId: "m2",
             activeMessageId: "m3",
         },
         { id: "c2", title: "", updatedAtMs: 0 },

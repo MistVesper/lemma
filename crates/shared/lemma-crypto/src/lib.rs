@@ -1,5 +1,4 @@
-//! Credential sealing for secrets at rest, such as provider API keys and
-//! S3 credentials.
+//! Credential sealing for secrets at rest, such as provider API keys.
 //!
 //! Secrets are encrypted with AES-256-GCM under a key derived from the
 //! configured master secret and stored base64-encoded in the database.

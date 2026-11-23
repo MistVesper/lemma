@@ -33,6 +33,7 @@ private fun ErrorReason.toFailure(): ServiceFailure? =
             ServiceFailure.ProviderIdentifierInvalid
         ErrorReason.ERROR_REASON_PROVIDER_IDENTIFIER_TAKEN -> ServiceFailure.ProviderIdentifierTaken
         ErrorReason.ERROR_REASON_PROVIDER_KEY_REQUIRED -> ServiceFailure.ProviderKeyRequired
+        ErrorReason.ERROR_REASON_PROVIDER_BASE_URL_INVALID -> ServiceFailure.ProviderBaseUrlInvalid
         ErrorReason.ERROR_REASON_ID_INVALID -> ServiceFailure.IdInvalid
         ErrorReason.ERROR_REASON_TITLE_REQUIRED -> ServiceFailure.TitleRequired
         ErrorReason.ERROR_REASON_SESSION_NOT_FOUND -> ServiceFailure.SessionNotFound

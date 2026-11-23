@@ -11,10 +11,6 @@ settings:
     platforms: [web]
     en: "Choose the light or dark appearance and interface language."
     zh: "选择界面的浅深色与显示语言。"
-  backToHome:
-    platforms: [web]
-    en: "Back to home"
-    zh: "回到首页"
   groupAgent:
     platforms: [web, android]
     en: "Agent"

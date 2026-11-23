@@ -144,19 +144,7 @@ impl SessionService {
                 Some(id)
             }
         };
-        let by_id: HashMap<_, _> = entries.iter().map(|entry| (entry.id, entry)).collect();
-        let mut api_format = None;
-        let mut current = parent_id;
-        while let Some(id) = current {
-            let entry = by_id
-                .get(&id)
-                .ok_or_else(|| SessionError::Missing(format!("node {id} missing in tree")))?;
-            if matches!(&entry.body.0, CoreMessage::Assistant { .. }) {
-                api_format = entry.api_format;
-                break;
-            }
-            current = entry.parent_id;
-        }
+        let api_format = nearest_assistant_api_format(parent_id, &entries)?;
         Ok((session, parent_id, api_format))
     }
 
@@ -268,4 +256,22 @@ fn message_from_row(
         created_at,
         updated_at,
     })
+}
+
+fn nearest_assistant_api_format(
+    start_id: Option<Uuid>,
+    entries: &[Message],
+) -> Result<Option<ApiFormat>, SessionError> {
+    let by_id: HashMap<_, _> = entries.iter().map(|entry| (entry.id, entry)).collect();
+    let mut current = start_id;
+    while let Some(id) = current {
+        let entry = by_id
+            .get(&id)
+            .ok_or_else(|| SessionError::Missing(format!("node {id} missing in tree")))?;
+        if matches!(&entry.body.0, CoreMessage::Assistant { .. }) {
+            return Ok(entry.api_format);
+        }
+        current = entry.parent_id;
+    }
+    Ok(None)
 }

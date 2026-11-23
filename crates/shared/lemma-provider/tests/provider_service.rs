@@ -250,6 +250,120 @@ async fn create_requires_an_ascii_identifier_and_a_base_url() -> Result<(), Box<
 }
 
 #[tokio::test]
+async fn create_accepts_only_printable_ascii_identifiers() -> Result<(), Box<dyn Error>> {
+    let db = lemma_db::in_memory().await?;
+    let providers = service(db);
+
+    let control = providers.create_custom(new_provider("main\u{7}")).await;
+    let delete = providers.create_custom(new_provider("main\u{7f}")).await;
+    let printable = providers
+        .create_custom(new_provider(" my provider~ "))
+        .await?;
+
+    assert!(
+        matches!(control, Err(ProviderError::IdentifierInvalid)),
+        "control character: {control:?}"
+    );
+    assert!(
+        matches!(delete, Err(ProviderError::IdentifierInvalid)),
+        "DEL character: {delete:?}"
+    );
+    assert_eq!(printable.identifier, "my provider~", "printable identifier");
+    Ok(())
+}
+
+#[tokio::test]
+async fn create_requires_an_http_base_url() -> Result<(), Box<dyn Error>> {
+    let db = lemma_db::in_memory().await?;
+    let providers = service(db);
+    let create = |identifier: &str, base_url: &str| {
+        providers.create_custom(CreateCustomInput {
+            base_url: base_url.to_owned(),
+            ..new_provider(identifier)
+        })
+    };
+
+    let rejected = [
+        create("ftp", "ftp://files.example.com").await,
+        create("bare", "api.example.com").await,
+        create("scheme", " https:// ").await,
+        create("space", "https://api.example.com/v1 beta").await,
+        create("upper", "HTTPS://api.example.com").await,
+        create("slashes", "https:///").await,
+    ];
+    let plain = create("plain", " http://localhost:11434/ ").await?;
+
+    for result in &rejected {
+        assert!(
+            matches!(result, Err(ProviderError::BaseUrlInvalid)),
+            "invalid base URL: {result:?}"
+        );
+    }
+    assert_eq!(plain.base_url, "http://localhost:11434", "http base URL");
+    assert_eq!(
+        custom_views(&providers.list().await?).len(),
+        1,
+        "only the valid provider was created"
+    );
+    Ok(())
+}
+
+#[tokio::test]
+async fn update_validates_the_base_url_and_names_a_blank_name_by_identifier()
+-> Result<(), Box<dyn Error>> {
+    let db = lemma_db::in_memory().await?;
+    let providers = service(db);
+    let before = providers.create_custom(new_provider("main")).await?;
+    let update_base_url = |base_url: &str| {
+        providers.update_custom(
+            before.id,
+            UpdateCustomInput {
+                name: Some("Ignored".to_owned()),
+                base_url: Some(base_url.to_owned()),
+                ..Default::default()
+            },
+        )
+    };
+
+    let invalid = update_base_url("ftp://files.example.com").await;
+    let slashes = update_base_url("https:///").await;
+    let empty = update_base_url(" / ").await;
+    let unchanged = providers
+        .update_custom(before.id, UpdateCustomInput::default())
+        .await?;
+    let blank_name = providers
+        .update_custom(
+            before.id,
+            UpdateCustomInput {
+                name: Some("   ".to_owned()),
+                ..Default::default()
+            },
+        )
+        .await?;
+
+    assert!(
+        matches!(invalid, Err(ProviderError::BaseUrlInvalid)),
+        "invalid base URL: {invalid:?}"
+    );
+    assert!(
+        matches!(slashes, Err(ProviderError::BaseUrlInvalid)),
+        "slash-only address: {slashes:?}"
+    );
+    assert!(
+        matches!(empty, Err(ProviderError::FieldsRequired)),
+        "empty base URL: {empty:?}"
+    );
+    assert_eq!(
+        (unchanged.name.as_str(), unchanged.base_url.as_str()),
+        (before.name.as_str(), before.base_url.as_str()),
+        "a rejected update writes nothing"
+    );
+    assert_eq!(blank_name.name, "main", "blank name stores the identifier");
+    assert_eq!(blank_name.base_url, before.base_url, "base URL kept");
+    Ok(())
+}
+
+#[tokio::test]
 async fn a_provider_without_a_key_or_name_keeps_them_empty_and_named_by_identifier()
 -> Result<(), Box<dyn Error>> {
     let db = lemma_db::in_memory().await?;

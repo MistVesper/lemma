@@ -384,7 +384,7 @@ provider:
     en: "Tool calling"
     zh: "工具调用"
   toolCallingDesc:
-    platforms: [web, android]
+    platforms: [android]
     en: "When off, requests to this model carry no tools and leave out earlier tool calls."
     zh: "关闭后，发给该模型的请求不带工具，也不包含之前的工具调用。"
   toolsSupported:

@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 import { expect, it, vi } from "vitest";
 
 import {
@@ -11,36 +12,40 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "./alert-dialog";
 import { Button } from "./button";
 
-const confirm = (onConfirm: () => void) => (
-    <AlertDialog>
-        <AlertDialogTrigger render={<Button variant="destructive" />}>
-            Delete
-        </AlertDialogTrigger>
-        <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-                <AlertDialogTitle>Delete session?</AlertDialogTitle>
-                <AlertDialogDescription>
-                    This cannot be undone.
-                </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={onConfirm}>
-                    Delete
-                </AlertDialogAction>
-            </AlertDialogFooter>
-        </AlertDialogContent>
-    </AlertDialog>
-);
+function ConfirmDelete({ onConfirm }: { onConfirm: () => void }) {
+    const [open, setOpen] = useState(false);
+    return (
+        <>
+            <Button variant="destructive" onClick={() => setOpen(true)}>
+                Delete
+            </Button>
+            <AlertDialog open={open} onOpenChange={setOpen}>
+                <AlertDialogContent size="sm">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete session?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={onConfirm}>
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    );
+}
 
 it("asks before a destructive action and cancels without acting", async () => {
     const user = userEvent.setup();
     const onConfirm = vi.fn<() => void>();
-    render(confirm(onConfirm));
+    render(<ConfirmDelete onConfirm={onConfirm} />);
 
     await user.click(screen.getByRole("button", { name: "Delete" }));
     const dialog = await screen.findByRole("alertdialog", {
@@ -59,7 +64,7 @@ it("asks before a destructive action and cancels without acting", async () => {
 it("runs the action on confirmation", async () => {
     const user = userEvent.setup();
     const onConfirm = vi.fn<() => void>();
-    render(confirm(onConfirm));
+    render(<ConfirmDelete onConfirm={onConfirm} />);
     await user.click(screen.getByRole("button", { name: "Delete" }));
 
     const dialog = await screen.findByRole("alertdialog");

@@ -25,6 +25,7 @@ fn transport_code(reason: ErrorReason) -> ErrorCode {
         | ErrorReason::ProviderKeyRequired
         | ErrorReason::ProviderIdentifierInvalid
         | ErrorReason::ProviderIdentifierTaken
+        | ErrorReason::ProviderBaseUrlInvalid
         | ErrorReason::IdInvalid
         | ErrorReason::TitleRequired
         | ErrorReason::InvalidBranchPoint
@@ -40,8 +41,9 @@ fn message(reason: ErrorReason) -> &'static str {
         ErrorReason::ApiFormatInvalid => "invalid API format",
         ErrorReason::ProviderKeyRequired => "save an API key before enabling this provider",
         ErrorReason::ProviderNotFound => "provider not found",
-        ErrorReason::ProviderIdentifierInvalid => "identifier must be non-empty ASCII",
+        ErrorReason::ProviderIdentifierInvalid => "identifier must be non-empty printable ASCII",
         ErrorReason::ProviderIdentifierTaken => "identifier already taken",
+        ErrorReason::ProviderBaseUrlInvalid => "base_url must start with http:// or https://",
         ErrorReason::IdInvalid => "invalid id",
         ErrorReason::TitleRequired => "title required",
         ErrorReason::SessionNotFound => "session not found",

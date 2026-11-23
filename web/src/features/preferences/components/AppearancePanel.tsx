@@ -12,7 +12,11 @@ import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { isThemePreference, type ThemePreference } from "../theme";
+import {
+    DEFAULT_THEME,
+    isThemePreference,
+    type ThemePreference,
+} from "../theme";
 import { ThemePreviewTiles } from "./ThemePreviewTiles";
 
 const LANGUAGES = [
@@ -56,7 +60,7 @@ export function AppearancePanel() {
                     description={t("settings.themeDesc")}
                 >
                     <ThemePreviewTiles
-                        value={isThemePreference(theme) ? theme : "system"}
+                        value={isThemePreference(theme) ? theme : DEFAULT_THEME}
                         onValueChange={handleThemeChange}
                     />
                 </SettingsField>

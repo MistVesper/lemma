@@ -123,13 +123,6 @@ jobs:
           flags: web
           report_type: test_results
 
-      # Bundle analysis uploads inside `vite build`; without the token env
-      # the plugin stays a no-op.
-      - name: Build with bundle analysis
-        run: just web-build
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
   desktop:
     name: Desktop
     runs-on: ubuntu-latest

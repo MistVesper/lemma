@@ -43,14 +43,18 @@ errors:
     platforms: [web, android]
     en: "Connection failed, try again"
     zh: "连接失败，请重试"
+  providerBaseUrlInvalid:
+    platforms: [web, android]
+    en: "Base URL must start with http:// or https://"
+    zh: "Base URL 必须以 http:// 或 https:// 开头"
   providerFieldsRequired:
     platforms: [web, android]
     en: "Base URL is required"
     zh: "请填写 Base URL"
   providerIdentifierInvalid:
     platforms: [web, android]
-    en: "Provider ID must be non-empty and contain only ASCII characters"
-    zh: "服务商 ID 不能为空，且仅限 ASCII 字符"
+    en: "Provider ID must be non-empty and contain only printable ASCII characters"
+    zh: "服务商 ID 不能为空，且仅限可打印 ASCII 字符"
   providerIdentifierTaken:
     platforms: [web, android]
     en: "This provider ID is already taken"

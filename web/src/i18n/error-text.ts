@@ -9,6 +9,7 @@ const reasonKeys: Partial<Record<ErrorReason, ParseKeys>> = {
     [ErrorReason.PROVIDER_IDENTIFIER_INVALID]:
         "errors.providerIdentifierInvalid",
     [ErrorReason.PROVIDER_IDENTIFIER_TAKEN]: "errors.providerIdentifierTaken",
+    [ErrorReason.PROVIDER_BASE_URL_INVALID]: "errors.providerBaseUrlInvalid",
     [ErrorReason.API_FORMAT_INVALID]: "errors.apiFormatInvalid",
     [ErrorReason.PROVIDER_KEY_REQUIRED]: "errors.providerKeyRequired",
     [ErrorReason.PROVIDER_NOT_FOUND]: "errors.providerNotFound",

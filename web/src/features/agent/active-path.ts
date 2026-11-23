@@ -46,6 +46,27 @@ export function nonEmptyId(value: string | undefined): string | undefined {
     return value === undefined || value === "" ? undefined : value;
 }
 
+/** Resolves the parent sent with a new turn and the local parent its optimistic branch attaches to; an explicit parent wins over a pending rewind, which wins over the leaf. */
+export function resolveSendParent(
+    explicitParentId: string | undefined,
+    rewind: { parentId: string | undefined } | null,
+    leafId: string | undefined,
+): { requestParentId: string | undefined; targetParentId: string | undefined } {
+    if (explicitParentId !== undefined) {
+        return {
+            requestParentId: explicitParentId,
+            targetParentId: nonEmptyId(explicitParentId),
+        };
+    }
+    if (rewind !== null) {
+        return {
+            requestParentId: rewind.parentId ?? "",
+            targetParentId: rewind.parentId,
+        };
+    }
+    return { requestParentId: undefined, targetParentId: leafId };
+}
+
 /** Resolves the active branch path from root to effectiveLeafId in oldest-first order. */
 export function resolveActivePath(
     allMessages: UiMessage[],

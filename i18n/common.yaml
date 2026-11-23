@@ -28,7 +28,7 @@ common:
     en: "Copy code"
     zh: "复制代码"
   delete:
-    platforms: [web, android]
+    platforms: [android]
     en: "Delete"
     zh: "删除"
   loading:

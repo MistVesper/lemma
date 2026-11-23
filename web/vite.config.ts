@@ -1,5 +1,4 @@
 import { fileURLToPath } from "node:url";
-import { codecovVitePlugin } from "@codecov/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import type { Plugin } from "vite";
@@ -11,8 +10,6 @@ import {
     DEFAULT_THEME,
     THEME_STORAGE_KEY,
 } from "./src/features/preferences/theme.ts";
-
-const codecovToken = process.env.CODECOV_TOKEN;
 
 const THEME_BOOT_SCRIPT = `(() => {
     try {
@@ -43,18 +40,7 @@ function themeBootScript(): Plugin {
 }
 
 export default defineConfig({
-    plugins: [
-        react(),
-        tailwindcss(),
-        themeBootScript(),
-        codecovVitePlugin({
-            enableBundleAnalysis: codecovToken !== undefined,
-            bundleName: "lemma-web",
-            ...(codecovToken === undefined
-                ? {}
-                : { uploadToken: codecovToken }),
-        }),
-    ],
+    plugins: [react(), tailwindcss(), themeBootScript()],
     resolve: {
         tsconfigPaths: true,
     },

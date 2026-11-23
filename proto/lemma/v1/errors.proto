@@ -11,9 +11,10 @@ enum ErrorReason {
   ERROR_REASON_PROVIDER_FIELDS_REQUIRED = 10;
   ERROR_REASON_API_FORMAT_INVALID = 11; // API format unspecified, or not served by the predefined provider
   ERROR_REASON_PROVIDER_NOT_FOUND = 12;
-  ERROR_REASON_PROVIDER_IDENTIFIER_INVALID = 13; // Identifier must contain valid non-empty ASCII characters
+  ERROR_REASON_PROVIDER_IDENTIFIER_INVALID = 13; // Identifier must be non-empty printable ASCII (0x20-0x7E)
   ERROR_REASON_PROVIDER_IDENTIFIER_TAKEN = 14;
   ERROR_REASON_PROVIDER_KEY_REQUIRED = 15; // Enabling a predefined provider requires a saved API key
+  ERROR_REASON_PROVIDER_BASE_URL_INVALID = 16; // Base URL must start with http:// or https:// and contain no whitespace
 
   // Session and messages
   ERROR_REASON_ID_INVALID = 20; // Shared invalid UUID identifier error

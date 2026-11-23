@@ -1,13 +1,14 @@
 import { isShortcutIgnored, toast } from "@lemma/ui";
+import type { TFunction } from "i18next";
 import { useEffect, useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { errorText } from "@/i18n/error-text";
 
-import { groupTurns } from "../active-path";
+import { groupTurns, type TurnStoreSlice } from "../active-path";
 import { buildSessionTree } from "../session-tree";
 import { useActiveSession } from "../useActiveSession";
-import { useModelSelection, type ModelOption } from "../useModelSelection";
+import { useModelSelection, type ModelSelection } from "../useModelSelection";
 import { ComposerDock, type ComposerDockState } from "./ComposerDock";
 import { SessionComposer, type SessionProviderGroup } from "./SessionComposer";
 import { SessionDirectoryBadge } from "./SessionDirectoryBadge";
@@ -18,7 +19,7 @@ import { TurnView } from "./TurnView";
 export interface ActiveSessionViewProps {
     sessionId: string;
     directory?: string | undefined;
-    modelOptions: ModelOption[];
+    modelOptions: ModelSelection[];
     providers: SessionProviderGroup[];
     onOpenProviders: () => void;
 }
@@ -148,24 +149,6 @@ export function ActiveSessionView({
         };
     }
 
-    const running = session.streaming
-        ? {
-              stepLabel:
-                  session.reconnectingOffset === null
-                      ? session.currentStep?.kind === "tool"
-                          ? t("agent.runningTool", {
-                                name: session.currentStep.name,
-                            })
-                          : t("agent.thinkingInProgress")
-                      : t("agent.reconnecting", {
-                            offset: session.reconnectingOffset,
-                        }),
-              startedAtMs: session.turnStartedAtMs ?? undefined,
-              warn: session.reconnectingOffset !== null,
-              onStop: () => void session.abort(),
-          }
-        : undefined;
-
     return (
         <SessionStage
             turns={turns.map((turn) => ({
@@ -217,7 +200,7 @@ export function ActiveSessionView({
                             <ComposerDock state={dockState} />
                         )
                     }
-                    running={running}
+                    running={runningComposerStatus(session, t)}
                     directorySlot={
                         directory === undefined ? null : (
                             <SessionDirectoryBadge directory={directory} />
@@ -292,4 +275,25 @@ export function ActiveSessionView({
             </div>
         </SessionStage>
     );
+}
+
+function runningComposerStatus(
+    session: TurnStoreSlice & { abort: () => Promise<void> },
+    t: TFunction,
+) {
+    if (!session.streaming) {
+        return;
+    }
+    const stepLabel =
+        session.reconnectingOffset === null
+            ? session.currentStep?.kind === "tool"
+                ? t("agent.runningTool", { name: session.currentStep.name })
+                : t("agent.thinkingInProgress")
+            : t("agent.reconnecting", { offset: session.reconnectingOffset });
+    return {
+        stepLabel,
+        startedAtMs: session.turnStartedAtMs ?? undefined,
+        warn: session.reconnectingOffset !== null,
+        onStop: () => void session.abort(),
+    };
 }

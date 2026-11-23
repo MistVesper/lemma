@@ -31,7 +31,7 @@ npm ci
 ### Run the clients
 
 - **Daemon and web:** `just web-build` then `just rust-dev` (`lemma-daemon` embeds `web/dist` at compile time and serves `http://127.0.0.1:1025`). For hot reload against a running daemon, run `just web-dev`.
-- **Desktop:** `just desktop-dev` builds `lemma-napi`, builds the web renderer, and launches Electron ([desktop/AGENTS.md](../desktop/AGENTS.md)).
+- **Desktop:** `just desktop-dev` builds `lemma-napi`, builds the web renderer, and launches Electron ([desktop/AGENTS.md](../desktop/AGENTS.md)). `just desktop-package` packages a release build of the app, and `just desktop-make` also makes its installers for the host platform.
 - **Android:** `just mobile-android-build` assembles the debug APK (`-Plemma.rust.profile=release` for release JNI libs; [mobile/AGENTS.md](../mobile/AGENTS.md)).
 
 ## Reference
@@ -68,4 +68,4 @@ Cargo runs through `mbx` (via `[wrappers.cargo]` in `mise.toml`), reusing compil
 
 ### CI workflows
 
-Workflows under [.github/workflows/](../.github/workflows/) invoke the same `just` recipes on pushes to `main`, pull requests, and manual dispatch (`gh workflow run`). Inspect each workflow file for its path filters, OS matrix, and caching setup.
+Check and coverage workflows under [.github/workflows/](../.github/workflows/) call the same `just` recipes as local runs. Inspect each workflow file for its triggers, path filters, OS matrix, and caching setup.

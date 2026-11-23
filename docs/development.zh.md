@@ -31,7 +31,7 @@ npm ci
 ### 运行各客户端
 
 - **守护进程与 Web**：先执行 `just web-build`，再执行 `just rust-dev`（`lemma-daemon` 在编译期嵌入 `web/dist`，监听 `http://127.0.0.1:1025`）。Web 热重载开发可配合已启动的守护进程运行 `just web-dev`。
-- **桌面端**：`just desktop-dev` 构建 `lemma-napi` 与 Web 渲染层并启动 Electron（[desktop/AGENTS.md](../desktop/AGENTS.md)）。
+- **桌面端**：`just desktop-dev` 构建 `lemma-napi` 与 Web 渲染层并启动 Electron（[desktop/AGENTS.md](../desktop/AGENTS.md)）。`just desktop-package` 打包 release 构建的应用，`just desktop-make` 还会为当前平台生成安装包。
 - **Android**：`just mobile-android-build` 打包 debug APK（加 `-Plemma.rust.profile=release` 构建 release JNI 库，见 [mobile/AGENTS.md](../mobile/AGENTS.md)）。
 
 ## 参考
@@ -68,4 +68,4 @@ Cargo 通过 `mbx`（由 `mise.toml` 的 `[wrappers.cargo]` 接管）在多 work
 
 ### CI 工作流
 
-[.github/workflows/](../.github/workflows/) 下的工作流在推送到 `main`、PR 与手动触发（`gh workflow run`）时直接调用同一套 `just` recipe。各工作流的路径过滤、系统矩阵与缓存配置以工作流文件本身为准。
+[.github/workflows/](../.github/workflows/) 下的检查与覆盖率工作流调用与本地相同的 `just` recipe。各工作流的触发条件、路径过滤、系统矩阵与缓存配置以工作流文件本身为准。

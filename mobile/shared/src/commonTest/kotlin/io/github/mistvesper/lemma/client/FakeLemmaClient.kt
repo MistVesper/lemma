@@ -53,10 +53,7 @@ class FakeLemmaClient : LemmaClient {
     var onListMessages: suspend (sessionId: String) -> ClientMessageTree = {
         ClientMessageTree(emptyList())
     }
-    var onSetSessionLeaf: suspend (sessionId: String, leafId: String?) -> ClientSession =
-        { sessionId, leafId ->
-            ClientSession(sessionId, "", updatedAt = 0, leafId = leafId)
-        }
+    var onSetSessionLeaf: suspend (sessionId: String, leafId: String?) -> Unit = { _, _ -> }
     var onSetMessageLabel:
         suspend (sessionId: String, messageId: String, label: String?) -> ClientMessage =
         { _, messageId, label ->
@@ -165,9 +162,9 @@ class FakeLemmaClient : LemmaClient {
         return onListMessages(sessionId)
     }
 
-    override suspend fun setSessionLeaf(sessionId: String, leafId: String?): ClientSession {
+    override suspend fun setSessionLeaf(sessionId: String, leafId: String?) {
         calls += Call("setSessionLeaf", sessionId, leafId)
-        return onSetSessionLeaf(sessionId, leafId)
+        onSetSessionLeaf(sessionId, leafId)
     }
 
     override suspend fun setMessageLabel(

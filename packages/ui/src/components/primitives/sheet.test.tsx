@@ -1,14 +1,14 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./sheet";
 
-it("closes from its labeled close button", async () => {
+it("opens a titled sheet on its side that Escape closes", async () => {
     const user = userEvent.setup();
     render(
         <Sheet defaultOpen>
-            <SheetContent closeLabel="Close">
+            <SheetContent>
                 <SheetHeader>
                     <SheetTitle>Filters</SheetTitle>
                 </SheetHeader>
@@ -16,11 +16,11 @@ it("closes from its labeled close button", async () => {
         </Sheet>,
     );
 
-    await user.click(
-        within(
-            await screen.findByRole("dialog", { name: "Filters" }),
-        ).getByRole("button", { name: "Close" }),
-    );
+    expect(
+        (await screen.findByRole("dialog", { name: "Filters" })).dataset.side,
+    ).toBe("right");
+
+    await user.keyboard("{Escape}");
 
     await waitFor(() => {
         expect(screen.queryByRole("dialog")).toBeNull();

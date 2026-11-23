@@ -47,7 +47,7 @@ potential-bugs:
 style:
   excludes: *generated
   MagicNumber:
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**', '**/androidHostTest/**', '**/*.kts']
+    excludes: *tests
   ReturnCount:
     excludeGuardClauses: true
 

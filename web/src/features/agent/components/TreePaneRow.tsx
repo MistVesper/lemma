@@ -29,7 +29,7 @@ function TreeRowRail({ row }: { row: SessionTreeRow }) {
                         )}
                     />
                 )}
-                {row.hasBottomSpine && (
+                {!row.isLeaf && (
                     <span
                         className={cn(
                             "absolute top-1/2 bottom-0 left-1/2 w-px -translate-x-1/2",

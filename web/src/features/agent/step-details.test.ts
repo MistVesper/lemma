@@ -316,13 +316,11 @@ describe("buildTurnSteps", () => {
         expect(sameTurnFixed[0]).toMatchObject({
             isError: true,
             selfHealed: true,
-            warn: true,
             detail: { kind: "output", text: "not found" },
         });
         expect(sameTurnFixed[1]).toMatchObject({
             isError: false,
             selfHealed: false,
-            warn: false,
         });
 
         const nextStepDone = buildTurnSteps([
@@ -340,7 +338,6 @@ describe("buildTurnSteps", () => {
         expect(nextStepDone[0]).toMatchObject({
             isError: true,
             selfHealed: true,
-            warn: true,
         });
 
         const unrecovered = buildTurnSteps([
@@ -358,7 +355,6 @@ describe("buildTurnSteps", () => {
         expect(unrecovered[0]).toMatchObject({
             isError: true,
             selfHealed: false,
-            warn: true,
         });
     });
 });

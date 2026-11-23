@@ -5,11 +5,12 @@ use lemma_model::ApiFormat;
 pub struct CreateCustomInput {
     /// API format, immutable after creation.
     pub api_format: ApiFormat,
-    /// User-facing machine identifier, ASCII-only, immutable after creation.
+    /// User-facing machine identifier, printable ASCII only, immutable after
+    /// creation.
     pub identifier: String,
-    /// Display name.
+    /// Display name; blank stores the identifier.
     pub name: String,
-    /// API base URL.
+    /// API base URL starting with `http://` or `https://`.
     pub base_url: String,
     /// Plaintext API key.
     pub api_key: String,

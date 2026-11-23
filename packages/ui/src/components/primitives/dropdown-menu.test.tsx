@@ -17,9 +17,7 @@ it("opens the menu and runs an item's action", async () => {
         <DropdownMenu>
             <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem inset onClick={onRename}>
-                    Rename
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={onRename}>Rename</DropdownMenuItem>
                 <DropdownMenuItem variant="destructive" onClick={onDelete}>
                     Delete
                 </DropdownMenuItem>

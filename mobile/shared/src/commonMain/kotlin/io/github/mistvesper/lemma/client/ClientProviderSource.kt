@@ -23,6 +23,5 @@ data class ClientCustomProvider(
     val apiFormat: ApiFormat,
     val baseUrl: String,
     val apiPath: String,
-    val modelsPath: String,
     override val models: List<ClientModel>,
 ) : ClientProviderSource

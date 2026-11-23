@@ -70,6 +70,10 @@ export function extractFencedCode(text: string): Extraction {
     const kept: string[] = [];
     const blocks: string[] = [];
     let open: { fence: string; lines: string[] } | undefined;
+    const closeBlock = (lines: string[]): void => {
+        kept.push(`[[CODE_BLOCK_${blocks.length}]]`);
+        blocks.push(lines.join("\n"));
+    };
     for (const line of text.split("\n")) {
         const fence = FENCE.exec(line)?.groups?.["fence"];
         if (open === undefined) {
@@ -86,15 +90,11 @@ export function extractFencedCode(text: string): Extraction {
             fence.startsWith(open.fence) &&
             line.trim() === fence
         ) {
-            kept.push(`[[CODE_BLOCK_${blocks.length}]]`);
-            blocks.push(open.lines.join("\n"));
+            closeBlock(open.lines);
             open = undefined;
         }
     }
-    if (open !== undefined) {
-        kept.push(`[[CODE_BLOCK_${blocks.length}]]`);
-        blocks.push(open.lines.join("\n"));
-    }
+    if (open !== undefined) closeBlock(open.lines);
     return { text: kept.join("\n"), blocks };
 }
 

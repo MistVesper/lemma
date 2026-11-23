@@ -22,7 +22,7 @@ import {
 } from "@/gen/lemma/v1/session_pb";
 
 import { useActiveSessionStore } from "../store";
-import type { ModelOption } from "../useModelSelection";
+import type { ModelSelection } from "../useModelSelection";
 import {
     ActiveSessionView,
     type ActiveSessionViewProps,
@@ -85,9 +85,7 @@ vi.mock("@/rpc/clients", () => ({
     },
 }));
 
-const defaultOptions: ModelOption[] = [
-    { providerId: "p1", model: "m1", providerName: "Acme" },
-];
+const defaultOptions: ModelSelection[] = [{ providerId: "p1", model: "m1" }];
 
 const defaultProviders: SessionProviderGroup[] = [
     { id: "p1", name: "Acme", enabled: true, models: [{ id: "m1" }] },

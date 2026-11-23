@@ -36,7 +36,6 @@ const makeStep = (patch: Partial<TurnStep>): TurnStep => ({
     plainArgument: false,
     isError: false,
     selfHealed: false,
-    warn: false,
     state: "done",
     detail: { kind: "output", text: "ok" },
     ...patch,
@@ -89,7 +88,6 @@ it("renders TurnView summaries, step variants, settled actions, streaming, abort
                 toolName: "bash",
                 argument: "",
                 isError: true,
-                warn: true,
             }),
             makeStep({
                 id: "s-search-1",

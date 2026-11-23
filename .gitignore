@@ -9,14 +9,9 @@ node_modules/
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
 # Web (Vite)
 dist
-dist-ssr
 *.local
 # Generated code, design tokens, and locales
 web/src/gen
@@ -39,10 +34,6 @@ desktop/web-dist/
 .vscode/*
 .idea
 *.iml
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 *.sw?
 
 # AI Agent

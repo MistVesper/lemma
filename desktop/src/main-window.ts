@@ -10,11 +10,13 @@ export const loadFatalPage = (window: BrowserWindow | null, detail: string) => {
     if (window === null) {
         return;
     }
+    const colors =
+        themeColors[nativeTheme.shouldUseDarkColors ? "dark" : "light"];
     const html = `<!doctype html><html><head><meta charset="utf-8"><title>Lemma</title></head>
-<body style="margin:0;font-family:system-ui;background:#151615;color:#e6e6e4">
+<body style="margin:0;font-family:system-ui,sans-serif;background:${colors.background};color:${colors.foreground}">
 <main style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;height:100vh">
-<h1 style="font-size:18px;margin:0">Cannot start the engine</h1>
-<p style="opacity:0.7;margin:0">${detail}</p>
+<h1 style="font-size:18px;font-weight:600;margin:0">Cannot start the engine</h1>
+<p style="opacity:0.7;font-size:14px;margin:0">${detail}</p>
 </main></body></html>`;
     window
         .loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`)

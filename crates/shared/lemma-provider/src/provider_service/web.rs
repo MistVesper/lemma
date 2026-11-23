@@ -103,35 +103,25 @@ impl<C: Connector> ProviderService<C> {
         } else {
             input.enabled
         };
-        if enabling_saved_key {
-            let updated = sqlx::query_as::<_, WebTuple>(
-                "UPDATE web_providers
-                 SET api_key = COALESCE(?, api_key),
-                     enabled = COALESCE(?, enabled)
-                 WHERE id = ? AND api_key != ''
-                 RETURNING id, kind, api_key, enabled, search_rank, fetch_rank",
-            )
-            .bind(api_key)
-            .bind(enabled)
-            .bind(id)
-            .fetch_optional(&self.db)
-            .await?
-            .ok_or(ProviderError::KeyRequired)?;
-            return self.web_view(&web_row_from_tuple(updated)?);
-        }
+        let missing_error = if enabling_saved_key {
+            ProviderError::KeyRequired
+        } else {
+            ProviderError::NotFound
+        };
         let updated = sqlx::query_as::<_, WebTuple>(
             "UPDATE web_providers
              SET api_key = COALESCE(?, api_key),
                  enabled = COALESCE(?, enabled)
-             WHERE id = ?
+             WHERE id = ? AND (NOT ? OR api_key != '')
              RETURNING id, kind, api_key, enabled, search_rank, fetch_rank",
         )
         .bind(api_key)
         .bind(enabled)
         .bind(id)
+        .bind(enabling_saved_key)
         .fetch_optional(&self.db)
         .await?
-        .ok_or(ProviderError::NotFound)?;
+        .ok_or(missing_error)?;
         self.web_view(&web_row_from_tuple(updated)?)
     }
 

@@ -19,7 +19,7 @@ How Lemma organizes, runs, and measures tests across the repository.
 All five areas enforce strict coverage checks (`just rust-cov`, `just web-cov`, `just desktop-cov`, `just packages-cov`, `just mobile-android-cov`):
 
 - **Web, Desktop, Packages:** fail below 100% statement, branch, function, and line coverage (configured in each package's `vitest.config.*`).
-- **Rust:** fails on any uncovered line or function via `cargo llvm-cov nextest` (exclusions live in [justfile](../justfile)).
+- **Rust:** fails on any uncovered line or function via `cargo llvm-cov nextest` (exclusions live in [.cargo/config.toml](../.cargo/config.toml)).
 - **Android:** fails on any uncovered line, uncalled method, or missed branch outside Composable functions via Kover and `verifyCoverage` (exclusions live in `mobile/androidApp/build.gradle.kts`).
 
 [codecov.yml](../codecov.yml) fails project status if total coverage drops more than 1% from base and disables patch status.

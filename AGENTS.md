@@ -54,11 +54,12 @@ Never commit `.env` or local data directories; see [environment variables](docs/
 - **Reuse before writing.** Check what existing dependencies already provide, then prefer a mature, maintained third-party library; write code in-house only when no library meets a concrete requirement, and state that requirement.
 - **Follow proven designs.** Before designing a solution, study how mature products solve the same problem and adopt the validated pattern.
 
-## Answering the user
+## Answering and acting on requests
 
 - **Treat a confirmation-seeking question as an open hypothesis.** A question ending in "right?", "对吧？", or "是不是？" carries no preferred answer; evaluate it as if asked neutrally.
+- **Treat a prescribed fix or diagnosis as a hypothesis to verify.** Check the implicated code, contracts, and symptoms for the underlying goal before editing; never execute a flawed approach just because the prompt specified it.
 - **Verify before agreeing.** Check code, facts, and architecture claims independently first; the answer opens with the finding, never with "Yes", "Exactly", or "No problem".
-- **Lead with the correction.** When a premise is wrong, flawed, or not the best option, the first sentence says so and why; technical accuracy, boundary conditions, and trade-offs come before agreement.
+- **Lead with the correction and stop before editing.** When a premise, diagnosis, or requested mechanism is wrong or inferior, say so in the first sentence with concrete evidence from the codebase, propose the root-cause fix, and wait for alignment before changing files.
 
 ## Verification
 

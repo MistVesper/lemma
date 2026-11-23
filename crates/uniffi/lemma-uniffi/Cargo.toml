@@ -18,7 +18,6 @@ bindgen = ["uniffi/cli"]
 jni.workspace = true
 lemma-engine.workspace = true
 thiserror.workspace = true
-tokio.workspace = true
 uniffi.workspace = true
 
 [target.'cfg(target_os = "android")'.dependencies]

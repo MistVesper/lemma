@@ -8,7 +8,6 @@ buffa.workspace = true
 buffa-types.workspace = true
 connectrpc.workspace = true
 serde.workspace = true
-serde_json.workspace = true
 
 [build-dependencies]
 connectrpc-build.workspace = true

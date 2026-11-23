@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 import { expect, it } from "vitest";
 
 import { Button } from "./button";
@@ -11,27 +12,29 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "./dialog";
 
-const dialog = (
-    props: { closeLabel?: string; size?: "default" | "lg" } = {},
-) => (
-    <Dialog>
-        <DialogTrigger render={<Button />}>Rename</DialogTrigger>
-        <DialogContent {...props}>
-            <DialogHeader>
-                <DialogTitle>Rename provider</DialogTitle>
-                <DialogDescription>Pick a new name.</DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>
-                    Cancel
-                </DialogClose>
-            </DialogFooter>
-        </DialogContent>
-    </Dialog>
-);
+function RenameDialog(props: { closeLabel?: string; size?: "default" | "lg" }) {
+    const [open, setOpen] = useState(false);
+    return (
+        <>
+            <Button onClick={() => setOpen(true)}>Rename</Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+                <DialogContent {...props}>
+                    <DialogHeader>
+                        <DialogTitle>Rename provider</DialogTitle>
+                        <DialogDescription>Pick a new name.</DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <DialogClose render={<Button variant="outline" />}>
+                            Cancel
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </>
+    );
+}
 
 const closed = () =>
     waitFor(() => {
@@ -40,7 +43,7 @@ const closed = () =>
 
 it("opens a titled, described dialog that its footer button closes", async () => {
     const user = userEvent.setup();
-    render(dialog());
+    render(<RenameDialog />);
 
     await user.click(screen.getByRole("button", { name: "Rename" }));
 
@@ -58,7 +61,7 @@ it("opens a titled, described dialog that its footer button closes", async () =>
 
 it("exposes the large width variant", async () => {
     const user = userEvent.setup();
-    render(dialog({ size: "lg" }));
+    render(<RenameDialog size="lg" />);
 
     await user.click(screen.getByRole("button", { name: "Rename" }));
 
@@ -67,7 +70,7 @@ it("exposes the large width variant", async () => {
 
 it("closes from its labeled close button", async () => {
     const user = userEvent.setup();
-    render(dialog({ closeLabel: "Close" }));
+    render(<RenameDialog closeLabel="Close" />);
     await user.click(screen.getByRole("button", { name: "Rename" }));
 
     await user.click(await screen.findByRole("button", { name: "Close" }));

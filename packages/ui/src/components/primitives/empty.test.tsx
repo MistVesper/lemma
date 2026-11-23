@@ -8,7 +8,6 @@ import {
     EmptyContent,
     EmptyDescription,
     EmptyHeader,
-    EmptyMedia,
     EmptyTitle,
 } from "./empty";
 
@@ -18,9 +17,6 @@ it("explains the empty state and offers its action", async () => {
     render(
         <Empty>
             <EmptyHeader>
-                <EmptyMedia variant="icon" className="mt-4">
-                    <svg aria-label="Providers" />
-                </EmptyMedia>
                 <EmptyTitle>No providers</EmptyTitle>
                 <EmptyDescription>Add one to start chatting.</EmptyDescription>
             </EmptyHeader>
@@ -30,9 +26,6 @@ it("explains the empty state and offers its action", async () => {
         </Empty>,
     );
 
-    expect(
-        screen.getByLabelText("Providers").parentElement?.className,
-    ).toContain("mt-4");
     expect(screen.getByText("No providers")).toBeDefined();
     expect(screen.getByText("Add one to start chatting.")).toBeDefined();
     await user.click(screen.getByRole("button", { name: "Add provider" }));

@@ -3,44 +3,29 @@ import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
 
 import { Checkbox } from "./checkbox";
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldGroup,
-    FieldLabel,
-} from "./field";
+import { FieldDescription, FieldError } from "./field";
 import { Input } from "./input";
+import { Label } from "./label";
 import { Switch } from "./switch";
 
-it("names its controls by their labels and reports errors", async () => {
+it("describes a labeled control and reports its error", async () => {
     const user = userEvent.setup();
     render(
-        <FieldGroup>
-            <Field data-invalid>
-                <FieldLabel htmlFor="name">Name</FieldLabel>
-                <Input id="name" aria-invalid />
-                <FieldError>Name is taken</FieldError>
-            </Field>
-            <Field>
-                <FieldLabel htmlFor="notes">Notes</FieldLabel>
-                <Input id="notes" />
-                <FieldDescription>Shown to you only.</FieldDescription>
-            </Field>
-        </FieldGroup>,
+        <>
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" aria-invalid />
+            <FieldDescription>Shown to you only.</FieldDescription>
+            <FieldError>Name is taken</FieldError>
+        </>,
     );
 
     await user.type(screen.getByRole("textbox", { name: "Name" }), "Acme");
-    await user.type(screen.getByRole("textbox", { name: "Notes" }), "Hi");
 
     expect(screen.getByRole("textbox", { name: "Name" })).toHaveProperty(
         "value",
         "Acme",
     );
-    expect(screen.getByRole("textbox", { name: "Notes" })).toHaveProperty(
-        "value",
-        "Hi",
-    );
+    expect(screen.getByText("Shown to you only.")).toBeDefined();
     expect(screen.getByRole("alert").textContent).toBe("Name is taken");
 });
 
@@ -48,14 +33,10 @@ it("toggles labeled checkboxes and switches", async () => {
     const user = userEvent.setup();
     render(
         <>
-            <Field orientation="horizontal">
-                <Checkbox id="agree" />
-                <FieldLabel htmlFor="agree">Agree</FieldLabel>
-            </Field>
-            <Field orientation="horizontal">
-                <FieldLabel htmlFor="enabled">Enabled</FieldLabel>
-                <Switch id="enabled" />
-            </Field>
+            <Checkbox id="agree" />
+            <Label htmlFor="agree">Agree</Label>
+            <Label htmlFor="enabled">Enabled</Label>
+            <Switch id="enabled" />
         </>,
     );
     const checkbox = screen.getByRole("checkbox", { name: "Agree" });

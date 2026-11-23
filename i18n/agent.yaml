@@ -69,93 +69,20 @@ agent:
     platforms: [web, android]
     en: "Thinking"
     zh: "正在思考"
-  thoughtFor:
-    platforms: [web]
-    params: { duration: string }
-    en: "Thought for {duration}"
-    zh: "思考了 {duration}"
   thoughtDuration:
     platforms: [web, android]
     params: { duration: string }
     en: "Thought {duration}"
     zh: "思考 {duration}"
   toolCall:
-    announce:
-      error:
-        platforms: [web]
-        params: { name: string, error: string }
-        en: "{name} failed: {error}"
-        zh: "{name} 失败：{error}"
-      running:
-        platforms: [web]
-        params: { name: string }
-        en: "{name} running"
-        zh: "{name} 正在运行"
-      success:
-        platforms: [web]
-        params: { name: string }
-        en: "{name} finished"
-        zh: "{name} 已完成"
-    arguments:
-      platforms: [web]
-      en: "Arguments"
-      zh: "参数"
-    copyArguments:
-      platforms: [web]
-      en: "Copy arguments"
-      zh: "复制参数"
-    copyResult:
-      platforms: [web]
-      en: "Copy result"
-      zh: "复制结果"
-    errorFallback:
-      platforms: [web]
-      en: "The tool call failed."
-      zh: "工具调用失败"
     failed:
       platforms: [web, android]
       en: "Failed"
       zh: "失败"
-    output:
-      platforms: [web]
-      en: "Result"
-      zh: "结果"
-    showAll:
-      platforms: [web]
-      en: "Show all"
-      zh: "展开全部"
-    showLess:
-      platforms: [web]
-      en: "Show less"
-      zh: "收起"
     waiting:
       platforms: [web, android]
       en: "Waiting for result…"
       zh: "等待结果…"
-  toolGroup:
-    failed:
-      platforms: [web]
-      params: { count: number }
-      en: "{count} failed"
-      zh: "{count} 个失败"
-    running:
-      platforms: [web]
-      plural: count
-      params: { count: number }
-      en:
-        one: "Using {count} tool…"
-        other: "Using {count} tools…"
-      zh:
-        other: "正在使用 {count} 个工具…"
-    used:
-      platforms: [web]
-      plural: count
-      params: { count: number }
-      en:
-        one: "Used {count} tool"
-        other: "Used {count} tools"
-      zh:
-        other: "使用了 {count} 个工具"
   verbBash:
     platforms: [web, android]
     en: "bash"

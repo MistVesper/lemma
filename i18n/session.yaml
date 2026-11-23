@@ -3,18 +3,10 @@ session:
     platforms: [web, android]
     en: "More actions"
     zh: "更多操作"
-  chooseDirectory:
-    platforms: [web]
-    en: "Choose directory"
-    zh: "选择目录"
   chooseOtherDirectory:
     platforms: [web]
     en: "Choose another directory…"
     zh: "选择其他目录…"
-  clearDirectory:
-    platforms: [web]
-    en: "Clear directory"
-    zh: "取消选择目录"
   codeTitle:
     platforms: [web, android]
     en: "Code"
@@ -31,10 +23,6 @@ session:
     platforms: [web, android]
     en: "Permanently delete this session?"
     zh: "彻底删除该会话？"
-  directoryLabel:
-    platforms: [web]
-    en: "Session directory"
-    zh: "会话目录"
   earlier:
     platforms: [web, android]
     en: "Earlier"
@@ -88,10 +76,6 @@ session:
     platforms: [web]
     en: "Open settings"
     zh: "前往设置"
-  noModelHint:
-    platforms: [web]
-    en: "Set up a provider and model in Settings first."
-    zh: "先在设置中配置服务商与模型。"
   noModelPlaceholder:
     platforms: [web]
     en: "Configure a provider and model to start…"

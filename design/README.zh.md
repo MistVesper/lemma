@@ -17,12 +17,12 @@
 颜色角色分为五类：
 
 - **表面**：`background`、`card`、`popover`、`muted`、`sidebar`、`control`。
-- **文本**：`foreground`、`muted-foreground`、`subtle-foreground`。
+- **文本**：`foreground`、`muted-foreground`、`subtle-foreground`、`link`。
 - **交互**：`primary`/`primary-hover`、`secondary`/`secondary-hover`、`accent`、`selected`、`ring`。
 - **状态**：`destructive`（及其 `-border`、`-ring`、`-subtle`、`-subtle-hover` 变体）、`completion`、`success`、`warning`。
 - **其他**：`border`、`input`、`track`、`thumb`、`brand`、`scrim`、`shadow`。
 
-**对比度标准**：在明暗两套主题下，所有文本角色、`primary` 及文本状态角色（`destructive`、`success`、`warning`）在 `background`、`card`、`popover`、`muted`、`sidebar`、`accent` 与 `selected` 上必须达到至少 **4.5:1** 的对比度（`completion` 仅用于非文本标记）；`primary-foreground` 在 `primary` 与 `primary-hover` 上同样须达到 4.5:1。
+**对比度标准**：在明暗两套主题下，所有文本角色（`foreground`、`muted-foreground`、`subtle-foreground`、`link`）、`primary` 及文本状态角色（`destructive`、`success`、`warning`）在 `background`、`card`、`popover`、`muted`、`sidebar`、`control`、`accent` 与 `selected` 上必须达到至少 **4.5:1** 的对比度（`brand` 与 `completion` 仅用于非文本标记）；`primary-foreground` 在 `primary` 与 `primary-hover` 上同样须达到 4.5:1。[`check-contrast.ts`](../scripts/design-token/check-contrast.ts) 在执行 `just design-gen` 时强制校验该标准。
 
 ## 生成产物
 

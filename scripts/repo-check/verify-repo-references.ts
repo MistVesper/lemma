@@ -92,46 +92,52 @@ interface Fence {
     shell: boolean;
 }
 
+function openingFence(match: RegExpMatchArray | null): Fence | null {
+    const marker = match?.[1];
+    const info = match?.[2];
+    if (marker === undefined || info === undefined) return null;
+    return { marker, shell: SHELL_FENCES.has(info) };
+}
+
+function checkShellLine(where: string, line: string): void {
+    const command = line.replace(/(^|\s)#.*$/u, "");
+    for (const [, name] of command.matchAll(RECIPE_CALL)) {
+        if (name !== undefined) checkRecipe(where, name);
+    }
+}
+
+function checkCodeSpans(where: string, line: string): void {
+    for (const [, , raw] of line.matchAll(CODE_SPAN)) {
+        if (raw === undefined) continue;
+        const span = raw.trim();
+        const recipe = span.match(RECIPE_SPAN)?.[1];
+        if (recipe !== undefined) checkRecipe(where, recipe);
+        const target = repoPath(span);
+        if (target !== null && !existing.has(target))
+            pathRefs.push({ where, target });
+    }
+}
+
 for (const file of files) {
     const text = readText(file);
     if (text === null) continue;
     const lines = text.split("\n");
     let fence: Fence | null = null;
-    lines.forEach((line, index) => {
+    for (const [index, line] of lines.entries()) {
         const where = `${file}:${index + 1}`;
         const fenceMatch = line.match(FENCE);
-        if (fence !== null) {
-            if (fenceMatch !== null && line.trim().startsWith(fence.marker)) {
-                fence = null;
-            } else if (fence.shell) {
-                const command = line.replace(/(^|\s)#.*$/u, "");
-                for (const [, name] of command.matchAll(RECIPE_CALL)) {
-                    if (name !== undefined) checkRecipe(where, name);
-                }
-            }
-            return;
+        if (fence === null) {
+            fence = openingFence(fenceMatch);
+            if (fence === null) checkCodeSpans(where, line);
+        } else if (
+            fenceMatch !== null &&
+            line.trim().startsWith(fence.marker)
+        ) {
+            fence = null;
+        } else if (fence.shell) {
+            checkShellLine(where, line);
         }
-        if (fenceMatch !== null) {
-            const marker = fenceMatch[1];
-            const info = fenceMatch[2];
-            if (marker !== undefined && info !== undefined) {
-                fence = {
-                    marker,
-                    shell: SHELL_FENCES.has(info),
-                };
-                return;
-            }
-        }
-        for (const [, , raw] of line.matchAll(CODE_SPAN)) {
-            if (raw === undefined) continue;
-            const span = raw.trim();
-            const recipe = span.match(RECIPE_SPAN)?.[1];
-            if (recipe !== undefined) checkRecipe(where, recipe);
-            const target = repoPath(span);
-            if (target !== null && !existing.has(target))
-                pathRefs.push({ where, target });
-        }
-    });
+    }
 }
 
 const ignored = ignoredPaths([...new Set(pathRefs.map((ref) => ref.target))]);

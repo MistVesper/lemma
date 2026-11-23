@@ -66,7 +66,7 @@ agent:
     en: "Thinking…"
     zh: "正在思考…"
   thinkingPending:
-    platforms: [web, android]
+    platforms: [android]
     en: "Thinking"
     zh: "正在思考"
   thoughtDuration:
@@ -80,7 +80,7 @@ agent:
       en: "Failed"
       zh: "失败"
     waiting:
-      platforms: [web, android]
+      platforms: [android]
       en: "Waiting for result…"
       zh: "等待结果…"
   verbBash:

@@ -158,15 +158,15 @@ message WebProvider {
   bool enabled = 4;
   // Decrypted API key; empty for native or when unset.
   string api_key = 5;
-  // Position in the search backend order; zero for backends without search.
+  // Position in the search fallback order, lowest first; native has no search and keeps zero.
   int32 search_rank = 6;
-  // Position in the fetch backend order; zero for backends without fetch.
+  // Position in the fetch fallback order, lowest first.
   int32 fetch_rank = 7;
 }
 
 message ListWebProvidersRequest {}
 
-// All web providers, ordered by kind.
+// All web providers, ordered by ascending `Kind` value.
 message ListWebProvidersResponse {
   repeated WebProvider providers = 1;
 }

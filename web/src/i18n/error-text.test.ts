@@ -17,6 +17,7 @@ function withReason(reason: number): ConnectError {
 
 it.each([
     [ErrorReason.PROVIDER_NOT_FOUND, "errors.providerNotFound"],
+    [ErrorReason.PROVIDER_BASE_URL_INVALID, "errors.providerBaseUrlInvalid"],
     [ErrorReason.DIRECTORY_NOT_FOUND, "errors.directoryNotFound"],
     [ErrorReason.MESSAGE_NOT_FOUND, "errors.messageNotFound"],
     [ErrorReason.INVALID_BRANCH_POINT, "errors.invalidBranchPoint"],

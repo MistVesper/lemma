@@ -118,15 +118,17 @@ impl<C: Connector> ProviderService<C> {
         Ok(views)
     }
 
-    /// Validates and stores a new custom provider.
+    /// Validates and stores a new custom provider; a blank name stores the
+    /// identifier.
     ///
     /// # Errors
     ///
-    /// [`ProviderError::IdentifierInvalid`] for an empty or non-ASCII identifier,
-    /// [`ProviderError::FieldsRequired`] for an empty base URL,
-    /// [`ProviderError::IdentifierTaken`] when the custom identifier is taken,
-    /// [`ProviderError::Crypto`] when sealing fails, and [`ProviderError::Store`]
-    /// when the database fails.
+    /// [`ProviderError::IdentifierInvalid`] for an identifier that is empty or
+    /// not printable ASCII, [`ProviderError::FieldsRequired`] for an empty base
+    /// URL, [`ProviderError::BaseUrlInvalid`] for a base URL outside
+    /// `http://` or `https://`, [`ProviderError::IdentifierTaken`] when the
+    /// custom identifier is taken, [`ProviderError::Crypto`] when sealing fails,
+    /// and [`ProviderError::Store`] when the database fails.
     pub async fn create_custom(
         &self,
         input: CreateCustomInput,
@@ -134,13 +136,10 @@ impl<C: Connector> ProviderService<C> {
         let identifier = input.identifier.trim();
         let name = input.name.trim();
         let name = if name.is_empty() { identifier } else { name };
-        let base_url = input.base_url.trim().trim_end_matches('/');
-        if identifier.is_empty() || !identifier.is_ascii() {
+        if identifier.is_empty() || !identifier.chars().all(|c| matches!(c, ' '..='~')) {
             return Err(ProviderError::IdentifierInvalid);
         }
-        if base_url.is_empty() {
-            return Err(ProviderError::FieldsRequired);
-        }
+        let base_url = valid_base_url(&input.base_url)?;
         let sealed = self.seal_key(&input.api_key)?;
         let id = Uuid::new_v4();
         let api_path = input.api_path.trim().to_owned();
@@ -187,22 +186,23 @@ impl<C: Connector> ProviderService<C> {
         })
     }
 
-    /// Applies an update to a custom provider.
+    /// Applies an update to a custom provider; a blank name stores the
+    /// identifier.
     ///
     /// # Errors
     ///
-    /// [`ProviderError::NotFound`] when no such custom provider exists,
-    /// [`ProviderError::Crypto`] when sealing or opening a key fails, and
-    /// [`ProviderError::Store`] when the database fails.
+    /// [`ProviderError::FieldsRequired`] for an empty base URL,
+    /// [`ProviderError::BaseUrlInvalid`] for a base URL outside `http://` or
+    /// `https://`, [`ProviderError::NotFound`] when no such custom provider
+    /// exists, [`ProviderError::Crypto`] when sealing or opening a key fails,
+    /// and [`ProviderError::Store`] when the database fails.
     pub async fn update_custom(
         &self,
         id: Uuid,
         input: UpdateCustomInput,
     ) -> Result<CustomProviderView, ProviderError> {
         let name = input.name.map(|s| s.trim().to_owned());
-        let base_url = input
-            .base_url
-            .map(|s| s.trim().trim_end_matches('/').to_owned());
+        let base_url = input.base_url.as_deref().map(valid_base_url).transpose()?;
         let api_key = match input.api_key.as_deref() {
             Some(key) => Some(self.seal_key(key)?),
             None => None,
@@ -212,7 +212,7 @@ impl<C: Connector> ProviderService<C> {
         let models = input.models.map(Json);
         let row = sqlx::query_as::<_, ProviderTuple>(
             "UPDATE providers
-             SET name = COALESCE(?, name),
+             SET name = CASE ? WHEN '' THEN identifier ELSE COALESCE(?, name) END,
                  base_url = COALESCE(?, base_url),
                  api_key = COALESCE(?, api_key),
                  api_path = COALESCE(?, api_path),
@@ -223,7 +223,8 @@ impl<C: Connector> ProviderService<C> {
              RETURNING id, api_format, source, identifier, name, base_url,
                        api_key, api_path, models_path, models, enabled",
         )
-        .bind(name)
+        .bind(name.as_deref())
+        .bind(name.as_deref())
         .bind(base_url)
         .bind(api_key)
         .bind(api_path)
@@ -270,4 +271,19 @@ impl<C: Connector> ProviderService<C> {
         .transpose()?
         .ok_or(ProviderError::NotFound)
     }
+}
+
+fn valid_base_url(raw: &str) -> Result<&str, ProviderError> {
+    let base_url = raw.trim().trim_end_matches('/');
+    if base_url.is_empty() {
+        return Err(ProviderError::FieldsRequired);
+    }
+    let is_http = base_url
+        .strip_prefix("https://")
+        .or_else(|| base_url.strip_prefix("http://"))
+        .is_some_and(|address| !address.is_empty() && !address.contains(char::is_whitespace));
+    if !is_http {
+        return Err(ProviderError::BaseUrlInvalid);
+    }
+    Ok(base_url)
 }

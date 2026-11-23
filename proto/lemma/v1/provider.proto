@@ -54,7 +54,7 @@ message PredefinedProvider {
 }
 
 message CustomProvider {
-  // Machine identifier visible to users; restricted to ASCII, immutable after creation.
+  // Machine identifier visible to users; restricted to printable ASCII, immutable after creation.
   string identifier = 1;
   string name = 2;
   ApiFormat api_format = 3; // Immutable after creation

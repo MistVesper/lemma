@@ -10,6 +10,7 @@ import lemma.mobile.shared.generated.resources.errors_invalid_branch_point
 import lemma.mobile.shared.generated.resources.errors_message_not_found
 import lemma.mobile.shared.generated.resources.errors_model_required
 import lemma.mobile.shared.generated.resources.errors_network
+import lemma.mobile.shared.generated.resources.errors_provider_base_url_invalid
 import lemma.mobile.shared.generated.resources.errors_provider_fields_required
 import lemma.mobile.shared.generated.resources.errors_provider_identifier_invalid
 import lemma.mobile.shared.generated.resources.errors_provider_identifier_taken
@@ -33,6 +34,7 @@ fun errorText(failure: ServiceFailure): UiText =
                 Res.string.errors_provider_identifier_invalid
             ServiceFailure.ProviderIdentifierTaken -> Res.string.errors_provider_identifier_taken
             ServiceFailure.ProviderKeyRequired -> Res.string.errors_provider_key_required
+            ServiceFailure.ProviderBaseUrlInvalid -> Res.string.errors_provider_base_url_invalid
             ServiceFailure.IdInvalid -> Res.string.errors_id_invalid
             ServiceFailure.TitleRequired -> Res.string.errors_title_required
             ServiceFailure.SessionNotFound -> Res.string.errors_session_not_found

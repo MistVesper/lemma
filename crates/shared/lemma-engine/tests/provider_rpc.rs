@@ -434,6 +434,21 @@ async fn invalid_requests_carry_their_reasons() -> Result<(), Box<dyn Error>> {
         ),
         (
             engine
+                .call(CREATE, &provider("ftp://api.example.com"))
+                .await?,
+            ErrorReason::ProviderBaseUrlInvalid,
+        ),
+        (
+            engine
+                .call(
+                    UPDATE,
+                    &json!({ "id": unknown, "baseUrl": "api.example.com" }),
+                )
+                .await?,
+            ErrorReason::ProviderBaseUrlInvalid,
+        ),
+        (
+            engine
                 .call(CREATE, &provider("https://api.example.com"))
                 .await?,
             ErrorReason::ProviderIdentifierTaken,

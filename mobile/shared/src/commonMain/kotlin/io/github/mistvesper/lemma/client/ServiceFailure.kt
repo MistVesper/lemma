@@ -11,6 +11,7 @@ enum class ServiceFailure {
     ProviderIdentifierInvalid,
     ProviderIdentifierTaken,
     ProviderKeyRequired,
+    ProviderBaseUrlInvalid,
     IdInvalid,
     TitleRequired,
     SessionNotFound,

@@ -7,12 +7,15 @@ pub enum ProviderError {
     /// A required field was empty after trimming.
     #[error("provider fields required")]
     FieldsRequired,
-    /// The identifier contains characters outside the standard ASCII range or is empty.
+    /// The identifier is empty or contains characters outside printable ASCII (0x20–0x7E).
     #[error("provider identifier invalid")]
     IdentifierInvalid,
     /// The identifier is already used by another custom provider.
     #[error("provider identifier taken")]
     IdentifierTaken,
+    /// The base URL does not start with `http://` or `https://` or contains whitespace.
+    #[error("provider base url invalid")]
+    BaseUrlInvalid,
     /// The requested API format is unspecified or not served by the provider.
     #[error("api format invalid")]
     ApiFormatInvalid,

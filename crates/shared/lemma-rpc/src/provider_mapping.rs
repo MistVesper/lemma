@@ -129,6 +129,9 @@ pub(crate) fn map_domain(e: ProviderError) -> ConnectError {
         ProviderError::IdentifierTaken => {
             lemma_proto::app_error(ErrorReason::ProviderIdentifierTaken)
         }
+        ProviderError::BaseUrlInvalid => {
+            lemma_proto::app_error(ErrorReason::ProviderBaseUrlInvalid)
+        }
         ProviderError::NotFound => lemma_proto::app_error(ErrorReason::ProviderNotFound),
         ProviderError::Store(m) => ConnectError::internal(format!("db: {m}")),
         e @ (ProviderError::Crypto(_) | ProviderError::Fetch(_) | ProviderError::Check(_)) => {

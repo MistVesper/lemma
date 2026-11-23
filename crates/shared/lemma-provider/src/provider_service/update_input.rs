@@ -4,9 +4,9 @@ use lemma_model::ApiFormat;
 /// value; `Some` replaces it, and an empty `api_key` clears the key.
 #[derive(Debug, Default)]
 pub struct UpdateCustomInput {
-    /// Display name.
+    /// Display name; blank stores the identifier.
     pub name: Option<String>,
-    /// API base URL.
+    /// API base URL starting with `http://` or `https://`.
     pub base_url: Option<String>,
     /// Plaintext replacement API key; empty clears the key.
     pub api_key: Option<String>,

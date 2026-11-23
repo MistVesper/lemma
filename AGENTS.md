@@ -59,8 +59,8 @@ Never commit `.env` or local data directories; see [environment variables](docs/
 
 ## Git
 
-- **Work on a branch; never edit or commit on `main` directly** unless the user asks: on `main`, create a `<type>/<topic>` branch before the first edit, with `<type>` from the [lemma-commit types](.agents/skills/lemma-commit/SKILL.md#type-taxonomy).
-- **Use a separate worktree** when another agent or the user changes files in the same worktree at the same time, or when the worktree holds uncommitted changes from other work or runs a process that switching branches would disturb ([setup](docs/development.md#worktrees)).
+- **Work on a matching `<type>/<topic>` branch; never edit or commit on `main` directly** unless the user asks, with `<type>` from the [lemma-commit types](.agents/skills/lemma-commit/SKILL.md#type-taxonomy). Before the first edit, verify that the current non-`main` branch matches the task's scope; stay on it when it matches, and start a fresh branch from `main` when on `main` or when the task is unrelated.
+- **Branch in place for small changes; use a separate worktree for large or parallel work.** Switch branches in the current worktree for small, localized edits; create a separate worktree from `main` for large or broad tasks (multi-file, cross-area, or long-running), when another agent or the user edits the same worktree in parallel, or when the worktree holds unrelated uncommitted changes or runs a process that switching branches would disturb ([setup](docs/development.md#worktrees)).
 - Commit messages follow [lemma-commit](.agents/skills/lemma-commit/SKILL.md), in English.
 - Commit, push, and merge only on explicit request; [lemma-commit](.agents/skills/lemma-commit/SKILL.md#atomicity) defines how a branch lands on `main`.
 - One commit does one complete thing; split independent hunks into separate commits. Only the latest snapshot must build; intermediate commits need not build on their own.

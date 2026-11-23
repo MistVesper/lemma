@@ -54,7 +54,7 @@ Never commit `.env` or local data directories; see [environment variables](docs/
 ## Verification
 
 - **Run the narrowest check that owns the change, once.** While working, run its test file or `cargo nextest run -p <crate>`; never widen to unrelated subtrees or rerun a check that passed on unchanged content. Before a push, [lemma-pre-push-checks](.agents/skills/lemma-pre-push-checks/SKILL.md) selects checks by changed directory; [docs/testing.md](docs/testing.md) describes the test tiers.
-- **Ask the user before compiling the whole Rust workspace or the Android app:** a Cargo `build`, `check`, `clippy`, or test command without `-p <crate>` or `--package <crate>`, `just rust-lint`, `just rust-lint-check`, `just rust-test`, `just rust-cov`, and the `mobile-android-*` recipes. Report a check skipped for lack of consent as not run, never as passing.
+- **Ask the user before compiling the whole Rust workspace or the Android app:** a Cargo `build`, `check`, `clippy`, or test command without `-p <crate>` or `--package <crate>`, `just rust-build`, `just rust-lint`, `just rust-lint-check`, `just rust-test`, `just rust-cov`, and the `mobile-android-*` recipes. Report a check skipped for lack of consent as not run, never as passing.
 - **Scope delegated work:** a sub-agent's task names the files it may change and the checks it runs; a sub-agent that needs another file or check stops and reports.
 
 ## Git

@@ -18,16 +18,18 @@ export function ShellFrame({
         <>
             <Sidebar label={t("sidebar.title")}>{sidebar}</Sidebar>
             <SidebarInset className="overflow-hidden">
-                <CollapsedSidebarTrigger />
-                <ViewTransition
-                    name="shell-main"
-                    share="ui-rise"
-                    default="none"
-                >
-                    <div className="flex min-h-0 flex-1 flex-col">
-                        {children}
-                    </div>
-                </ViewTransition>
+                <div className="relative flex min-h-0 flex-1 flex-col">
+                    <CollapsedSidebarTrigger />
+                    <ViewTransition
+                        name="shell-main"
+                        share="ui-rise"
+                        default="none"
+                    >
+                        <div className="flex min-h-0 flex-1 flex-col">
+                            {children}
+                        </div>
+                    </ViewTransition>
+                </div>
             </SidebarInset>
         </>
     );
@@ -39,7 +41,7 @@ function CollapsedSidebarTrigger() {
         return null;
     }
     return (
-        <div className="absolute top-3 left-3 z-20 rounded-md border border-border bg-background p-0.5 shadow-raised">
+        <div className="absolute top-3 left-3 z-20 rounded-md border border-border bg-card p-0.5 shadow-raised">
             <SidebarToggleButton />
         </div>
     );

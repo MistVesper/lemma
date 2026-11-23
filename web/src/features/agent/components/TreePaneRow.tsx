@@ -86,7 +86,7 @@ export function TreePaneRow({
             <button
                 type="button"
                 onClick={onSelect}
-                className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 py-1 text-left"
+                className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-sm py-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
             >
                 <span
                     className={cn(
@@ -135,7 +135,7 @@ export function TreePaneRow({
                 <button
                     type="button"
                     onClick={onStartEdit}
-                    className="shrink-0 cursor-pointer text-caption text-subtle-foreground opacity-0 transition-opacity duration-base group-focus-within:opacity-100 group-hover:opacity-100 hover:text-foreground"
+                    className="shrink-0 cursor-pointer rounded-sm px-1 text-caption text-subtle-foreground opacity-0 transition-opacity duration-base outline-none group-focus-within:opacity-100 group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring/60"
                 >
                     {hasLabel
                         ? t("session.treeEditLabel")

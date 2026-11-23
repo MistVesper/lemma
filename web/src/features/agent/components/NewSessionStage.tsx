@@ -1,4 +1,4 @@
-import { toast } from "@lemma/ui";
+import { toast, Wordmark } from "@lemma/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,6 @@ import {
     SessionDirectoryPicker,
     type SessionDirectoryControl,
 } from "./SessionDirectoryPicker";
-import { StageComposer } from "./SessionStage";
 
 export interface NewSessionStageProps {
     directoryControl: SessionDirectoryControl;
@@ -21,7 +20,7 @@ export interface NewSessionStageProps {
     onCreateSession: (directory?: string) => Promise<string>;
 }
 
-/** Blank home stage for composing the first message of a new session. */
+/** Centered home stage for composing the first message of a new session. */
 export function NewSessionStage({
     directoryControl,
     modelOptions,
@@ -56,9 +55,9 @@ export function NewSessionStage({
               };
 
     return (
-        <div className="flex min-h-0 flex-1 flex-col bg-background">
-            <div className="flex-1" />
-            <StageComposer>
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center bg-background px-4 pb-12 md:px-6">
+            <div className="flex w-full max-w-170 flex-col items-center gap-7">
+                <Wordmark size="lg" label={t("common.appName")} />
                 <SessionComposer
                     sessionKey=""
                     onSubmit={handleSubmit}
@@ -75,7 +74,7 @@ export function NewSessionStage({
                         />
                     }
                 />
-            </StageComposer>
+            </div>
         </div>
     );
 }

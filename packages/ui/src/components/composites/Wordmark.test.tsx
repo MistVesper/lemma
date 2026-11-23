@@ -3,17 +3,21 @@ import { expect, it } from "vitest";
 
 import { Wordmark } from "./Wordmark";
 
-it("renders default and splash wordmark scales with trailing brand dot", () => {
+it("renders vector wordmark scales with accessible label and brand dot", () => {
     const { rerender } = render(<Wordmark label="Lemma" />);
 
-    const wordmark = screen.getByText("Lemma");
+    const wordmark = screen.getByRole("img", { name: "Lemma" });
     expect(wordmark.dataset.slot).toBe("wordmark");
-    expect(wordmark.className).toContain("text-wordmark");
-    const dot = wordmark.querySelector('[aria-hidden="true"]');
-    expect(dot?.className).toContain("bg-brand");
+    expect(wordmark.dataset.size).toBe("default");
+    expect(wordmark.querySelector("circle")?.getAttribute("class")).toContain(
+        "fill-brand",
+    );
+
+    rerender(<Wordmark label="Lemma" size="lg" />);
+    expect(screen.getByRole("img", { name: "Lemma" }).dataset.size).toBe("lg");
 
     rerender(<Wordmark label="Lemma" size="splash" />);
-    expect(screen.getByText("Lemma").className).toContain(
-        "text-wordmark-splash",
+    expect(screen.getByRole("img", { name: "Lemma" }).dataset.size).toBe(
+        "splash",
     );
 });

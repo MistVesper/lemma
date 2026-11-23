@@ -115,7 +115,7 @@ function Sidebar({
                     data-sidebar="sidebar"
                     data-slot="sidebar"
                     data-mobile="true"
-                    className="top-(--sidebar-inset-top) h-auto w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground"
+                    className="inset-y-0 h-auto w-(--sidebar-width) bg-sidebar p-0 pt-(--titlebar-safe-top,0px) text-foreground"
                     style={{ "--sidebar-width": SIDEBAR_WIDTH_MOBILE }}
                     side="left"
                 >
@@ -130,7 +130,7 @@ function Sidebar({
 
     return (
         <div
-            className="group peer hidden text-sidebar-foreground md:block"
+            className="group peer hidden text-foreground md:block"
             data-state={state}
             data-collapsible={state === "collapsed" ? "offcanvas" : ""}
             data-variant="sidebar"
@@ -145,7 +145,7 @@ function Sidebar({
                 data-slot="sidebar-container"
                 data-side="left"
                 className={cn(
-                    "fixed top-(--sidebar-inset-top) bottom-0 left-0 z-10 hidden w-(--sidebar-width) border-r border-border [transition:var(--sidebar-show)] group-data-[collapsible=offcanvas]:invisible group-data-[collapsible=offcanvas]:-translate-x-4 group-data-[collapsible=offcanvas]:opacity-0 group-data-[collapsible=offcanvas]:[transition:var(--sidebar-hide)] motion-reduce:transition-none md:flex",
+                    "fixed inset-y-0 left-0 z-10 hidden w-(--sidebar-width) border-r border-border [transition:var(--sidebar-show)] group-data-[collapsible=offcanvas]:invisible group-data-[collapsible=offcanvas]:-translate-x-4 group-data-[collapsible=offcanvas]:opacity-0 group-data-[collapsible=offcanvas]:[transition:var(--sidebar-hide)] motion-reduce:transition-none md:flex",
                     className,
                 )}
                 {...props}
@@ -153,7 +153,7 @@ function Sidebar({
                 <div
                     data-sidebar="sidebar"
                     data-slot="sidebar-inner"
-                    className="flex size-full flex-col bg-sidebar"
+                    className="flex size-full flex-col bg-sidebar pt-(--titlebar-safe-top,0px)"
                 >
                     {children}
                 </div>
@@ -194,7 +194,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
         <main
             data-slot="sidebar-inset"
             className={cn(
-                "relative flex min-w-0 w-full flex-1 flex-col bg-background",
+                "relative flex w-full min-w-0 flex-1 flex-col bg-background pt-(--titlebar-safe-top,0px)",
                 className,
             )}
             {...props}
@@ -207,7 +207,10 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
         <div
             data-slot="sidebar-header"
             data-sidebar="header"
-            className={cn("flex flex-col gap-2 p-2", className)}
+            className={cn(
+                "flex flex-col gap-1.5 px-2.5 pt-2.5 pb-1.5",
+                className,
+            )}
             {...props}
         />
     );
@@ -218,7 +221,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
         <div
             data-slot="sidebar-footer"
             data-sidebar="footer"
-            className={cn("flex flex-col gap-2 p-2", className)}
+            className={cn("flex flex-col gap-1.5 px-2.5 py-2", className)}
             {...props}
         />
     );
@@ -230,7 +233,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
             data-slot="sidebar-content"
             data-sidebar="content"
             className={cn(
-                "no-scrollbar flex min-h-0 flex-1 flex-col gap-0 overflow-auto",
+                "no-scrollbar flex min-h-0 flex-1 flex-col gap-0 overflow-auto px-0.5",
                 className,
             )}
             {...props}

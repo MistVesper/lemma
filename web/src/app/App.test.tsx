@@ -457,7 +457,7 @@ it("paints the desktop title bar for the route and theme", async () => {
     await waitFor(() => {
         expect(bridge.setTitleBar).toHaveBeenLastCalledWith({
             theme: "dark",
-            surface: "sidebar",
+            surface: "background",
         });
     });
 
@@ -474,7 +474,7 @@ it("paints the desktop title bar with the light theme by default", async () => {
     await waitFor(() => {
         expect(bridge.setTitleBar).toHaveBeenLastCalledWith({
             theme: "light",
-            surface: "sidebar",
+            surface: "background",
         });
     });
 });

@@ -9,13 +9,12 @@ import {
     type ReactNode,
 } from "react";
 
-import { SearchIcon } from "#icons/search";
-
 import {
     AnchoredPickerGroupView,
     type AnchoredPickerGroup,
     type AnchoredPickerItem,
 } from "./AnchoredPickerGroupView";
+import { SearchInput } from "./SearchInput";
 
 export type {
     AnchoredPickerGroup,
@@ -145,27 +144,21 @@ export function AnchoredPicker({
                     <Popover.Popup
                         initialFocus={searchInputRef}
                         onKeyDown={handleKeyDown}
-                        className="w-85 overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-overlay outline-none"
+                        className="w-85 origin-(--transform-origin) overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-overlay duration-base ease-enter outline-none data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:duration-fast data-closed:ease-exit data-closed:fade-out-0 data-closed:zoom-out-95"
                     >
-                        <div className="flex items-center gap-2 border-b border-border px-3 py-2">
-                            <SearchIcon
-                                aria-hidden="true"
-                                className="size-3.5 shrink-0 text-subtle-foreground"
-                            />
-                            <input
-                                ref={searchInputRef}
-                                type="search"
-                                value={query}
-                                onChange={(event) => {
-                                    setQuery(event.currentTarget.value);
-                                    setActiveIndex(0);
-                                }}
-                                placeholder={searchPlaceholder}
-                                aria-label={searchPlaceholder}
-                                className="w-full bg-transparent text-small text-foreground outline-none placeholder:text-subtle-foreground"
-                            />
-                        </div>
+                        <SearchInput
+                            inputRef={searchInputRef}
+                            variant="flush"
+                            value={query}
+                            onChange={(event) => {
+                                setQuery(event.currentTarget.value);
+                                setActiveIndex(0);
+                            }}
+                            placeholder={searchPlaceholder}
+                            aria-controls={`${baseId}-list`}
+                        />
                         <div
+                            id={`${baseId}-list`}
                             role="listbox"
                             tabIndex={-1}
                             aria-label={searchPlaceholder}
@@ -204,7 +197,7 @@ export function AnchoredPicker({
                                         footerAction.onSelect();
                                         handleOpenChange(false);
                                     }}
-                                    className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-left text-small text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                                    className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-left text-small text-muted-foreground transition-colors outline-none hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60"
                                 >
                                     {footerAction.label}
                                 </button>

@@ -1,34 +1,55 @@
 @import "./tokens.gen.css";
 
 @font-face {
-    font-family: "NewCM";
-    src: url("./fonts/NewCM10-Book.otf") format("opentype");
+    font-family: "Noto Sans Variable";
+    src:
+        local("Noto Sans"),
+        url("@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2")
+            format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Maple Mono Web";
+    src:
+        local("Maple Mono NF CN"),
+        local("Maple Mono CN"),
+        local("Maple Mono"),
+        url("@fontsource/maple-mono/files/maple-mono-latin-400-normal.woff2")
+            format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "NewCM";
-    src: url("./fonts/NewCM10-Bold.otf") format("opentype");
-    font-weight: 700;
+    font-family: "Maple Mono Web";
+    src:
+        local("Maple Mono NF CN Medium"),
+        local("Maple Mono NF CN"),
+        local("Maple Mono CN Medium"),
+        local("Maple Mono Medium"),
+        url("@fontsource/maple-mono/files/maple-mono-latin-500-normal.woff2")
+            format("woff2");
+    font-weight: 500 600;
     font-style: normal;
     font-display: swap;
 }
 
 @theme inline {
     --font-sans:
-        "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI",
-        "Noto Sans SC", system-ui, sans-serif;
+        "Noto Sans Variable", "Noto Sans", "Noto Sans SC", "Noto Sans CJK SC",
+        "PingFang SC", "Microsoft YaHei UI", system-ui, sans-serif;
     --font-heading: var(--font-sans);
-    --font-brand: "NewCM", Georgia, serif;
-    --font-mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+    --font-mono:
+        "Maple Mono NF CN", "Maple Mono CN", "Maple Mono Web", "Maple Mono",
+        "Noto Sans Mono CJK SC", "PingFang SC", "Microsoft YaHei UI", monospace;
     --color-completion: var(--completion);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar: var(--sidebar);
     --color-brand: var(--brand);
+    --color-link: var(--link);
     --color-ring: var(--ring);
     --color-input: var(--input);
     --color-border: var(--border);
@@ -73,19 +94,18 @@
     --default-transition-duration: var(--motion-duration-base);
     --default-transition-timing-function: var(--motion-easing-move);
     --shadow-raised:
-        0 1px 2px color-mix(in oklab, var(--shadow) 50%, transparent),
-        0 2px 8px color-mix(in oklab, var(--shadow) 40%, transparent);
+        0 1px 2px color-mix(in oklab, var(--shadow) 45%, transparent),
+        0 4px 16px color-mix(in oklab, var(--shadow) 55%, transparent);
     --shadow-overlay:
-        0 2px 4px color-mix(in oklab, var(--shadow) 40%, transparent),
-        0 8px 24px color-mix(in oklab, var(--shadow) 70%, transparent);
+        0 2px 6px color-mix(in oklab, var(--shadow) 45%, transparent),
+        0 12px 28px color-mix(in oklab, var(--shadow) 75%, transparent);
     --shadow-modal:
-        0 4px 8px color-mix(in oklab, var(--shadow) 40%, transparent),
-        0 20px 48px var(--shadow);
+        0 4px 12px color-mix(in oklab, var(--shadow) 45%, transparent),
+        0 24px 56px var(--shadow);
 }
 
 :root {
-    --sidebar-inset-top: 0px;
-    --sidebar-width-default: 236px;
+    --sidebar-width-default: 244px;
     --sidebar-show:
         opacity var(--motion-duration-slow) var(--motion-easing-move),
         translate var(--motion-duration-reveal) var(--motion-easing-enter),

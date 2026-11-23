@@ -23,18 +23,17 @@
 
 业务功能代码仅使用主题语义工具类。颜色、圆角、字号刻度与动效的具体数值以 [design/tokens.json](../../design/README.zh.md) 为唯一真源；`src/styles/tokens.css` 补充字体栈与阴影并映射到 Tailwind。
 
-| 字体角色               | 用途                                          |
-| ---------------------- | --------------------------------------------- |
-| `text-caption`         | 时间戳、分组标签、代码块标签                  |
-| `text-small`           | 列表行、侧边栏项、工具行、说明文字            |
-| `text-body`            | 默认界面文本、按钮、菜单项、`md` 及以上输入框 |
-| `text-reading`         | 消息正文、输入框面板、`md` 以下输入框         |
-| `text-title`           | 分区与对话框标题                              |
-| `text-display`         | 首页与设置页标题                              |
-| `text-wordmark`        | 侧边栏品牌文字标                              |
-| `text-wordmark-splash` | 启动页与闪屏品牌文字标                        |
+| 字体角色       | 用途                                     |
+| -------------- | ---------------------------------------- |
+| `text-caption` | 时间戳、分组标签、快捷键徽章、代码块标签 |
+| `text-small`   | 列表行、侧边栏项、选择器触发器、说明文字 |
+| `text-body`    | 默认界面文本、按钮、菜单项、输入框       |
+| `text-reading` | 消息正文与输入框面板                     |
+| `text-title`   | 分区与对话框标题、Markdown `h3`          |
+| `text-heading` | 次级标题与 Markdown `h2`                 |
+| `text-display` | 页面标题与 Markdown `h1`                 |
 
-- **品牌字体**：`font-brand` 使用 `"NewCM"`（回退 serif）用于文字标与品牌标题；其余文本使用界面无衬线字体。
+- **字体与文字标**：`font-sans` 使用 `Noto Sans`，`font-mono` 使用 `Maple Mono NF CN`，两者均配置中文无衬线回退；`Wordmark` 以矢量形式渲染带右上角品牌圆点的品牌文字标。
 - **圆角**：`rounded-sm` 用于徽章、复选框与输入框内控件；`rounded-md` 用于按钮、输入框、列表行、菜单项与代码块；`rounded-lg` 用于卡片、浮层、对话框、输入框面板与主面板；`rounded-full` 用于头像、开关与胶囊标签。
 - **尺寸**：控件高度用 `h-7`、`h-8`（默认）或 `h-9`（`h-6` 仅用于输入框内部）；同一行保持同一高度。列表行使用 `h-8` 搭配 `text-small`（`Button variant="row"`，以 `data-active` 标记当前项）。
 - **悬停与选中**：行、菜单项、幽灵/描边按钮悬停用 `bg-accent`；当前项与按下的筛选胶囊用 `bg-selected`，文字配 `text-foreground` 或 `text-muted-foreground`。

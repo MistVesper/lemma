@@ -65,7 +65,7 @@ function DetailBody({
                             <span className="text-body font-medium text-foreground">
                                 {hit.title}
                             </span>
-                            <span className="truncate font-mono text-caption text-brand">
+                            <span className="truncate font-mono text-caption text-link">
                                 {hit.url}
                             </span>
                             {hit.snippet !== "" && (

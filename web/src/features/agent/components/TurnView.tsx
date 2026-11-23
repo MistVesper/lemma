@@ -1,4 +1,10 @@
-import { cn, formatClockTime, formatDuration, Markdown } from "@lemma/ui";
+import {
+    Button,
+    cn,
+    formatClockTime,
+    formatDuration,
+    Markdown,
+} from "@lemma/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -71,7 +77,7 @@ export function TurnView({
         <div data-turn-id={turn.id} className="group/turn flex flex-col">
             <div
                 data-follow-sticky=""
-                className="sticky top-2.5 z-10 -mx-4 mb-3.5 flex items-baseline gap-4 rounded-lg bg-selected px-4 py-2.5 text-reading font-normal text-foreground"
+                className="sticky top-2.5 z-10 mb-3.5 flex items-baseline gap-4 rounded-lg bg-selected px-3.5 py-2.5 text-reading font-normal text-foreground sm:-mx-3.5"
             >
                 <div className="min-w-0 flex-1 wrap-break-word">
                     {turn.userMessage.content}
@@ -104,15 +110,16 @@ export function TurnView({
                         ) : undefined
                     }
                     renderCodeActions={(block) => (
-                        <button
+                        <Button
                             type="button"
+                            variant="ghost"
+                            size="xs"
                             onClick={() =>
                                 onInspectCode(block.code, block.language)
                             }
-                            className="cursor-pointer rounded-sm px-1.5 py-0.5 text-caption font-medium text-muted-foreground transition-colors duration-base hover:text-foreground"
                         >
                             {t("session.openInPane")}
-                        </button>
+                        </Button>
                     )}
                 >
                     {reply.content}

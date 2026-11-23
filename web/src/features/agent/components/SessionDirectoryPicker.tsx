@@ -1,6 +1,6 @@
 import {
     AnchoredPicker,
-    ChevronDownIcon,
+    PickerTrigger,
     toast,
     type AnchoredPickerItem,
 } from "@lemma/ui";
@@ -97,17 +97,7 @@ export function SessionDirectoryPicker({
             emptyText={t("session.treeEmpty")}
             groups={[{ id: "directories", items }]}
             footerAction={footerAction}
-            trigger={
-                <button
-                    type="button"
-                    className="inline-flex max-w-44 cursor-pointer items-center gap-1 rounded-md px-2 py-1 font-mono text-small text-muted-foreground transition-colors duration-base hover:bg-selected hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                    <span className="min-w-0 truncate">{label}</span>
-                    <span aria-hidden="true" className="shrink-0">
-                        <ChevronDownIcon size={14} />
-                    </span>
-                </button>
-            }
+            trigger={<PickerTrigger label={label} chevron />}
         />
     );
 }

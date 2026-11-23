@@ -1,6 +1,6 @@
 import { expect, it, vi } from "vitest";
 
-import { isShortcutIgnored } from "./shortcut";
+import { formatModShortcut, isShortcutIgnored } from "./shortcut";
 
 it("ignores prevented, IME-composing, and editable-element keyboard events", () => {
     const plain = new KeyboardEvent("keydown", { key: "k", ctrlKey: true });
@@ -51,4 +51,10 @@ it("ignores prevented, IME-composing, and editable-element keyboard events", () 
     expect(observed).toHaveBeenLastCalledWith(false);
 
     wrapper.remove();
+});
+
+it("formats primary-modifier shortcuts per platform", () => {
+    expect(formatModShortcut("n", "Win32")).toBe("Ctrl N");
+    expect(formatModShortcut("k", "MacIntel")).toBe("⌘K");
+    expect(formatModShortcut("b")).toMatch(/^(?:⌘B|Ctrl B)$/u);
 });

@@ -3,6 +3,9 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
 } from "@lemma/ui";
 import { ViewTransition } from "react";
 import { useTranslation } from "react-i18next";
@@ -42,14 +45,17 @@ export function SettingsSidebar() {
             </SidebarContent>
             <SidebarFooter>
                 <div className="border-t border-border pt-2">
-                    <div className="flex h-8 items-center gap-2 rounded-md bg-selected px-2 text-small font-medium text-sidebar-foreground">
-                        <SettingsIcon
-                            aria-hidden="true"
-                            size={16}
-                            className="shrink-0"
-                        />
-                        <span className="truncate">{t("common.settings")}</span>
-                    </div>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                isActive
+                                render={<div aria-current="page" />}
+                            >
+                                <SettingsIcon aria-hidden="true" />
+                                <span>{t("common.settings")}</span>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
                 </div>
             </SidebarFooter>
         </>

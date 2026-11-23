@@ -17,12 +17,12 @@ English | [中文](README.zh.md)
 Color roles fall into five families:
 
 - **Surfaces:** `background`, `card`, `popover`, `muted`, `sidebar`, `control`.
-- **Text:** `foreground`, `muted-foreground`, `subtle-foreground`.
+- **Text:** `foreground`, `muted-foreground`, `subtle-foreground`, `link`.
 - **Interaction:** `primary`/`primary-hover`, `secondary`/`secondary-hover`, `accent`, `selected`, `ring`.
 - **Status:** `destructive` (and its `-border`, `-ring`, `-subtle`, `-subtle-hover` tints), `completion`, `success`, `warning`.
 - **Other:** `border`, `input`, `track`, `thumb`, `brand`, `scrim`, `shadow`.
 
-**Contrast standard:** every text role, `primary`, and text status roles (`destructive`, `success`, `warning`) must reach at least a **4.5:1** contrast ratio on `background`, `card`, `popover`, `muted`, `sidebar`, `accent`, and `selected` in both themes (`completion` is for non-text markers); `primary-foreground` must reach 4.5:1 on `primary` and `primary-hover`.
+**Contrast standard:** every text role (`foreground`, `muted-foreground`, `subtle-foreground`, `link`), `primary`, and text status roles (`destructive`, `success`, `warning`) must reach at least a **4.5:1** contrast ratio on `background`, `card`, `popover`, `muted`, `sidebar`, `control`, `accent`, and `selected` in both themes (`brand` and `completion` are for non-text markers); `primary-foreground` must reach 4.5:1 on `primary` and `primary-hover`. [`check-contrast.ts`](../scripts/design-token/check-contrast.ts) enforces this during `just design-gen`.
 
 ## Outputs
 

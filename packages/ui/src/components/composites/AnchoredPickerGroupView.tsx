@@ -60,7 +60,7 @@ export function AnchoredPickerGroupView({
                         <button
                             type="button"
                             onClick={group.onAction}
-                            className="cursor-pointer text-caption text-muted-foreground transition-colors hover:text-foreground"
+                            className="cursor-pointer rounded-sm px-1 text-caption text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60"
                         >
                             {group.actionLabel}
                         </button>
@@ -80,20 +80,26 @@ export function AnchoredPickerGroupView({
                         data-active={active ? "" : undefined}
                         onMouseEnter={() => onHoverIndex(itemIndex)}
                         onClick={() => onSelectItem(item)}
-                        className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-small text-foreground outline-none hover:bg-accent data-active:bg-accent"
+                        className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-small text-foreground outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/60 data-active:bg-accent"
                     >
                         <span className="min-w-0 flex-1">
                             <span
                                 className={cn(
                                     "block truncate",
                                     item.mono === true &&
+                                        item.sublabel === undefined &&
                                         "font-mono text-caption",
                                 )}
                             >
                                 {item.label}
                             </span>
                             {item.sublabel !== undefined && (
-                                <span className="block truncate text-caption text-subtle-foreground">
+                                <span
+                                    className={cn(
+                                        "block truncate text-caption text-subtle-foreground",
+                                        item.mono === true && "font-mono",
+                                    )}
+                                >
                                     {item.sublabel}
                                 </span>
                             )}

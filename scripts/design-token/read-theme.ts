@@ -1,3 +1,4 @@
+import { checkThemeContrast } from "./check-contrast.ts";
 import { readGroup, tokenKeys } from "./token-tree.ts";
 
 export const THEMES = ["light", "dark"] as const;
@@ -24,6 +25,7 @@ export function readThemes(
         dark: resolveTheme(readGroup(tokens, "dark", tokensPath), "dark", palette),
     };
     checkThemesMatch(themes.light, themes.dark);
+    checkThemeContrast(themes);
     return themes;
 }
 

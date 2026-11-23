@@ -72,6 +72,7 @@ it("filters items, supports keyboard navigation, actions, and footer", async () 
                 {
                     id: "2",
                     label: "o3-mini",
+                    mono: true,
                     onSelect: onSecond,
                 },
             ],

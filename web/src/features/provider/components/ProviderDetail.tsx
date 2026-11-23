@@ -1,4 +1,9 @@
-import { cn, Input, SettingsField, SettingsSectionCompact } from "@lemma/ui";
+import {
+    Button,
+    Input,
+    SettingsField,
+    SettingsSectionCompact,
+} from "@lemma/ui";
 import { useId, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -170,8 +175,10 @@ export function ProviderDetail({
                 />
             </SettingsSectionCompact>
             <div className="mt-5 border-t border-border pt-3">
-                <button
+                <Button
                     type="button"
+                    variant={confirmingDelete ? "destructive" : "ghost"}
+                    size="sm"
                     onClick={() => {
                         if (!confirmingDelete) {
                             setConfirmingDelete(true);
@@ -187,17 +194,11 @@ export function ProviderDetail({
                             setConfirmingDelete(false);
                         }
                     }}
-                    className={cn(
-                        "-ml-2 cursor-pointer rounded-md px-2 py-1 text-small transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-ring",
-                        confirmingDelete
-                            ? "bg-selected text-destructive"
-                            : "text-subtle-foreground hover:bg-selected hover:text-destructive",
-                    )}
                 >
                     {confirmingDelete
                         ? t("provider.deleteConfirmInline")
                         : t("provider.deleteProvider")}
-                </button>
+                </Button>
             </div>
         </ProviderHeader>
     );

@@ -8,10 +8,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupInput,
-    SearchIcon,
+    SearchInput,
 } from "@lemma/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -111,17 +108,12 @@ function RemoteModelPicker({
 
     return (
         <>
-            <InputGroup>
-                <InputGroupAddon>
-                    <SearchIcon />
-                </InputGroupAddon>
-                <InputGroupInput
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    aria-label={t("provider.modelSearchPlaceholder")}
-                    placeholder={t("provider.modelSearchPlaceholder")}
-                />
-            </InputGroup>
+            <SearchInput
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                aria-label={t("provider.modelSearchPlaceholder")}
+                placeholder={t("provider.modelSearchPlaceholder")}
+            />
             <label className="flex items-center gap-2 px-2 text-muted-foreground">
                 <Checkbox
                     checked={allPicked}

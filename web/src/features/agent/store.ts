@@ -13,6 +13,7 @@ import {
     EMPTY_SESSION_SLICE,
     nonEmptyId,
     resolveActivePath,
+    resolveSendParent,
     type TurnStoreSlice,
 } from "./active-path";
 import { createActiveTurnRunner } from "./active-turn";
@@ -171,17 +172,11 @@ export const useActiveSessionStore = create<ActiveSessionState>()((
             if (sessionId === null || streaming) {
                 return;
             }
-            const hasExplicitParent =
-                explicitParentId !== undefined || rewind !== null;
-            const requestParentId = hasExplicitParent
-                ? (explicitParentId ?? rewind?.parentId ?? "")
-                : undefined;
-            const targetParentId =
-                explicitParentId === undefined
-                    ? rewind === null
-                        ? leafId
-                        : rewind.parentId
-                    : nonEmptyId(explicitParentId);
+            const { requestParentId, targetParentId } = resolveSendParent(
+                explicitParentId,
+                rewind,
+                leafId,
+            );
             set((s) => ({
                 drafts: setDraftEntry(s.drafts, sessionId, ""),
             }));

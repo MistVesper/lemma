@@ -75,7 +75,7 @@ function DirectoryToggle({
             aria-controls={panelId}
             onClick={onToggle}
             className={cn(
-                "flex min-w-0 flex-1 cursor-pointer items-center gap-1 rounded-sm text-left text-caption ring-sidebar-ring outline-hidden hover:text-foreground focus-visible:ring-2",
+                "flex min-w-0 flex-1 cursor-pointer items-center gap-1 rounded-sm text-left text-caption ring-ring/60 outline-hidden hover:text-foreground focus-visible:ring-2",
                 highlighted
                     ? "font-medium text-foreground"
                     : "text-muted-foreground",
@@ -207,7 +207,7 @@ export function SessionGroups({
                                                                 : group.directory,
                                                         )
                                                     }
-                                                    className="flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-sm text-muted-foreground opacity-100 ring-sidebar-ring outline-hidden transition-opacity duration-base group-focus-within/dir:opacity-100 group-hover/dir:opacity-100 hover:bg-sidebar-accent hover:text-foreground focus-visible:opacity-100 focus-visible:ring-2 md:opacity-0"
+                                                    className="flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-sm text-muted-foreground opacity-100 ring-ring/60 outline-hidden transition-opacity duration-base group-focus-within/dir:opacity-100 group-hover/dir:opacity-100 hover:bg-accent hover:text-foreground focus-visible:opacity-100 focus-visible:ring-2 md:opacity-0"
                                                 />
                                             }
                                         >

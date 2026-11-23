@@ -111,7 +111,7 @@ export function ModelList({
                             type="button"
                             aria-label={t("provider.removeModel")}
                             onClick={() => remove(model.id)}
-                            className="cursor-pointer rounded-md px-2 py-0.5 text-caption text-subtle-foreground opacity-100 transition-opacity duration-fast hover:bg-selected hover:text-foreground focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring pointer-fine:opacity-0 pointer-fine:group-hover/settings-row:opacity-100"
+                            className="cursor-pointer rounded-md px-2 py-0.5 text-caption text-subtle-foreground opacity-100 transition-opacity duration-fast outline-none hover:bg-accent hover:text-foreground focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring/60 pointer-fine:opacity-0 pointer-fine:group-hover/settings-row:opacity-100"
                         >
                             {t("provider.removeAction")}
                         </button>

@@ -50,8 +50,7 @@ function TurnOutline({ turns }: { turns: StageTurn[] }) {
     );
 }
 
-/** The 680px column that holds the composer at the bottom of a session page. */
-export function StageComposer({ children }: { children: ReactNode }) {
+function StageComposer({ children }: { children: ReactNode }) {
     return (
         <div className="shrink-0 px-4 pb-4 md:px-6">
             <div className="mx-auto w-full max-w-170">{children}</div>

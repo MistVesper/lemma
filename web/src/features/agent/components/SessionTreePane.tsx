@@ -1,4 +1,4 @@
-import { cn, DrawerHeader, SearchIcon } from "@lemma/ui";
+import { cn, DrawerHeader, SearchInput } from "@lemma/ui";
 import { useId, useMemo, useState, type KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -98,27 +98,16 @@ export function SessionTreePane({
                 </span>
             </DrawerHeader>
             <div className="flex flex-col gap-2 border-b border-border px-3 py-2.5">
-                <div className="flex items-center gap-2 rounded-md border border-input bg-control px-2.5 py-1.5">
-                    <span
-                        aria-hidden="true"
-                        className="inline-flex shrink-0 text-subtle-foreground"
-                    >
-                        <SearchIcon className="size-3.5" />
-                    </span>
-                    <input
-                        type="search"
-                        aria-controls={listboxId}
-                        value={query}
-                        onKeyDown={handleNavigationKeyDown}
-                        onChange={(event) => {
-                            setQuery(event.currentTarget.value);
-                            setCursor(0);
-                        }}
-                        placeholder={t("session.treeSearchPlaceholder")}
-                        aria-label={t("session.treeSearchPlaceholder")}
-                        className="w-full bg-transparent text-small text-foreground outline-none placeholder:text-subtle-foreground"
-                    />
-                </div>
+                <SearchInput
+                    aria-controls={listboxId}
+                    value={query}
+                    onKeyDown={handleNavigationKeyDown}
+                    onChange={(event) => {
+                        setQuery(event.currentTarget.value);
+                        setCursor(0);
+                    }}
+                    placeholder={t("session.treeSearchPlaceholder")}
+                />
                 <div className="flex flex-wrap items-center gap-1.5">
                     {FILTERS.map((item) => {
                         const active = filter === item.id;
@@ -132,7 +121,7 @@ export function SessionTreePane({
                                     setCursor(0);
                                 }}
                                 className={cn(
-                                    "cursor-pointer rounded-full px-2.5 py-0.5 text-caption transition-colors duration-base",
+                                    "cursor-pointer rounded-full px-2.5 py-0.5 text-caption transition-colors duration-base outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                                     active
                                         ? "bg-selected font-medium text-foreground"
                                         : "text-muted-foreground hover:bg-accent hover:text-foreground",

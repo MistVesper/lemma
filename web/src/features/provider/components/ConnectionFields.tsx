@@ -1,4 +1,5 @@
 import {
+    Button,
     ChevronDownIcon,
     ChevronRightIcon,
     Collapsible,
@@ -69,10 +70,11 @@ export function ConnectionFields({
                 <Collapsible open={pathsOpen} onOpenChange={setPathsOpen}>
                     <CollapsibleTrigger
                         render={
-                            <button
+                            <Button
                                 type="button"
+                                variant="ghost"
+                                size="sm"
                                 aria-label={t("provider.customPaths")}
-                                className="-ml-2 inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-small text-muted-foreground transition-colors duration-base hover:bg-selected hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
                             />
                         }
                     >

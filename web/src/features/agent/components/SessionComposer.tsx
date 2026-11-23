@@ -111,7 +111,7 @@ export function SessionComposer({
     };
 
     return (
-        <div className="w-full max-w-170 overflow-hidden rounded-lg border border-input bg-background shadow-raised transition-colors duration-base focus-within:border-foreground">
+        <div className="w-full max-w-170 overflow-hidden rounded-lg border border-input bg-card shadow-raised transition-colors duration-base focus-within:border-ring/70">
             <div
                 className="grid-collapse"
                 data-open={dock !== undefined}
@@ -119,7 +119,7 @@ export function SessionComposer({
             >
                 <div>
                     {dock !== undefined && (
-                        <div className="border-b border-border bg-sidebar px-3.5 py-2">
+                        <div className="border-b border-border bg-muted/60 px-3.5 py-2">
                             {dock}
                         </div>
                     )}
@@ -132,7 +132,7 @@ export function SessionComposer({
             >
                 <div>
                     {running !== undefined && (
-                        <div className="flex items-center gap-2 border-b border-border bg-sidebar px-3 py-1.5 text-small">
+                        <div className="flex items-center gap-2 border-b border-border bg-muted/60 px-3 py-1.5 text-small">
                             {running.warn ? (
                                 <span
                                     aria-hidden="true"

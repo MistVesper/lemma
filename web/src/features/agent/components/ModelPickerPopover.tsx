@@ -1,6 +1,6 @@
 import {
     AnchoredPicker,
-    ChevronDownIcon,
+    PickerTrigger,
     type AnchoredPickerGroup,
 } from "@lemma/ui";
 import { useTranslation } from "react-i18next";
@@ -93,17 +93,10 @@ export function ModelPickerPopover({
             groups={groups}
             footerAction={footerAction}
             trigger={
-                <button
-                    type="button"
-                    className="inline-flex max-w-44 cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-small text-muted-foreground transition-colors duration-base hover:bg-selected hover:text-foreground"
-                >
-                    <span className="min-w-0 truncate">
-                        {model?.model ?? t("session.selectModel")}
-                    </span>
-                    <span aria-hidden="true" className="shrink-0">
-                        <ChevronDownIcon size={14} />
-                    </span>
-                </button>
+                <PickerTrigger
+                    label={model?.model ?? t("session.selectModel")}
+                    chevron
+                />
             }
         />
     );

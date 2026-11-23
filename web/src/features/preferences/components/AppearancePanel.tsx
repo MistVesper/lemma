@@ -45,7 +45,7 @@ export function AppearancePanel() {
         setTheme(next);
         transitionTimerRef.current = window.setTimeout(() => {
             document.documentElement.classList.remove("theme-transition");
-        }, 260);
+        }, 220);
     };
 
     return (

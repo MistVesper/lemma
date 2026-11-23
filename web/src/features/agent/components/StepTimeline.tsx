@@ -42,7 +42,7 @@ export function StepTimeline({
                 aria-expanded={open}
                 aria-controls={listId}
                 onClick={() => onOpenChange(!open)}
-                className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-small text-muted-foreground transition-colors duration-base hover:bg-accent hover:text-foreground"
+                className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-small text-muted-foreground transition-colors duration-base outline-none hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60"
             >
                 <span
                     className={cn(
@@ -119,7 +119,7 @@ export function StepTimeline({
                                         onClick={row.onSelect}
                                         className={cn(
                                             rowClass,
-                                            "cursor-pointer hover:bg-accent",
+                                            "cursor-pointer outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/60",
                                         )}
                                     >
                                         {content}

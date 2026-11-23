@@ -1,4 +1,4 @@
-import { isShortcutIgnored, toast } from "@lemma/ui";
+import { isShortcutIgnored, PickerTrigger, toast } from "@lemma/ui";
 import type { TFunction } from "i18next";
 import { useEffect, useId, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -207,8 +207,13 @@ export function ActiveSessionView({
                         )
                     }
                     trailingFooter={
-                        <button
-                            type="button"
+                        <PickerTrigger
+                            label={t("session.treeButton", {
+                                count: tree.pathCount,
+                            })}
+                            leading={
+                                <span className="size-1.5 rounded-full bg-brand" />
+                            }
                             aria-expanded={effectivePane.mode === "tree"}
                             aria-controls={
                                 activePane === undefined ? undefined : drawerId
@@ -218,18 +223,7 @@ export function ActiveSessionView({
                                     toggleTreeForSession(c, sessionId),
                                 )
                             }
-                            className="inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-small text-muted-foreground transition-colors duration-base hover:bg-selected hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                        >
-                            <span
-                                aria-hidden="true"
-                                className="size-1.5 shrink-0 rounded-full bg-brand"
-                            />
-                            <span>
-                                {t("session.treeButton", {
-                                    count: tree.pathCount,
-                                })}
-                            </span>
-                        </button>
+                        />
                     }
                 />
             }

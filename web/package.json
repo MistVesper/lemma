@@ -22,7 +22,6 @@
         "build:desktop": "tsc -b && vite build --outDir ../desktop/web-dist --emptyOutDir",
         "prelint": "npm run gen",
         "lint": "oxlint",
-        "preview": "vite preview",
         "pretest": "npm run gen",
         "test": "vitest run",
         "pretest:cov": "npm run gen",

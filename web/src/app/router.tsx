@@ -15,7 +15,6 @@ export const router = createBrowserRouter([
         children: [
             {
                 Component: AppLayout,
-                handle: { titleBar: "sidebar" } satisfies RouteHandle,
                 loader: loadSessions,
                 shouldRevalidate: () => false,
                 children: [

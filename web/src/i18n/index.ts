@@ -5,6 +5,12 @@ import { initReactI18next } from "react-i18next";
 import en from "./locales/en.json";
 import zh from "./locales/zh.json";
 
+function syncDocumentLang(language: string): void {
+    document.documentElement.lang = language.startsWith("zh") ? "zh-CN" : "en";
+}
+
+i18n.on("languageChanged", syncDocumentLang);
+
 void i18n
     .use(LanguageDetector)
     .use(initReactI18next)
@@ -21,5 +27,7 @@ void i18n
             lookupLocalStorage: "lemma.lang",
         },
     });
+
+syncDocumentLang(i18n.language);
 
 export { i18n };

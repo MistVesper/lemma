@@ -24,7 +24,7 @@ npx --no-install jscpd --reporters ai --no-tips --max-gap-lines 1 --similarity 0
 
 Tools traverse from entry points, so deleting one dead item exposes its callees; loop in small batches until clean.
 
-- **TypeScript (`web`, `desktop`, `packages`, `scripts`, `design`):** run `just deadcode-check` (`knip`). Never use `jscpd --dead-code` for TypeScript — it misses Electron and script entries.
+- **TypeScript (`web`, `desktop`, `packages`, `scripts`):** run `just deadcode-check` (`knip`). Never use `jscpd --dead-code` for TypeScript — it misses Electron and script entries.
 - **Rust:** with user consent to compile ([AGENTS.md](../../../../AGENTS.md#verification)), run:
 
   ```sh

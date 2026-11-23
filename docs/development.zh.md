@@ -68,4 +68,4 @@ Cargo 通过 `mbx`（由 `mise.toml` 的 `[wrappers.cargo]` 接管）在多 work
 
 ### CI 工作流
 
-[.github/workflows/](../.github/workflows/) 下的工作流在推送到 `main`、PR 与手动触发（`gh workflow run`）时直接调用同一套 `just` recipe。各工作流的路径过滤、系统矩阵与缓存配置以工作流文件本身为准。
+[.github/workflows/](../.github/workflows/) 下的检查与覆盖率工作流调用与本地相同的 `just` recipe。各工作流的触发条件、路径过滤、系统矩阵与缓存配置以工作流文件本身为准。

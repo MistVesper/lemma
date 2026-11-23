@@ -9,12 +9,12 @@
 每个 `<namespace>.yaml` 对应一个顶层命名空间。嵌套映射用于分组，包含 `en` 或 `zh` 的映射为一条文案条目，且两种语言必填。
 
 ```yaml
-sidebar:
-    renameSession:
+agent:
+    runningTool:
         platforms: [web, android]
-        params: { title: string }
-        en: "Rename {title}"
-        zh: "重命名{title}"
+        params: { name: string }
+        en: "Running {name}…"
+        zh: "正在运行 {name}…"
 ```
 
 | 字段        | 必填 | 含义                                                       |

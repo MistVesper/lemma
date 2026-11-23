@@ -68,4 +68,4 @@ Cargo runs through `mbx` (via `[wrappers.cargo]` in `mise.toml`), reusing compil
 
 ### CI workflows
 
-Workflows under [.github/workflows/](../.github/workflows/) invoke the same `just` recipes on pushes to `main`, pull requests, and manual dispatch (`gh workflow run`). Inspect each workflow file for its path filters, OS matrix, and caching setup.
+Check and coverage workflows under [.github/workflows/](../.github/workflows/) call the same `just` recipes as local runs. Inspect each workflow file for its triggers, path filters, OS matrix, and caching setup.

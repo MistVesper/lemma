@@ -68,7 +68,6 @@ class ProviderPagesTest {
                                 apiFormat = input.apiFormat,
                                 baseUrl = input.baseUrl,
                                 apiPath = input.apiPath,
-                                modelsPath = input.modelsPath,
                                 models = input.models,
                             ),
                     )
@@ -351,7 +350,6 @@ private fun ClientProvider.customPatched(patch: ClientCustomProviderPatch): Clie
                 name = patch.name ?: custom.name,
                 baseUrl = patch.baseUrl ?: custom.baseUrl,
                 apiPath = patch.apiPath ?: custom.apiPath,
-                modelsPath = patch.modelsPath ?: custom.modelsPath,
                 models = patch.models ?: custom.models,
             ),
     )

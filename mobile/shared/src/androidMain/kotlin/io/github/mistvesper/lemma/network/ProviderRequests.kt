@@ -28,7 +28,6 @@ internal fun customProviderCreateRequest(
     baseUrl = input.baseUrl
     apiKey = input.apiKey
     apiPath = input.apiPath
-    modelsPath = input.modelsPath
     models.addAll(input.models.map { it.toProto() })
 }
 
@@ -41,7 +40,6 @@ internal fun customProviderUpdateRequest(
     patch.baseUrl?.let { baseUrl = it }
     patch.apiKey?.let { apiKey = it }
     patch.apiPath?.let { apiPath = it }
-    patch.modelsPath?.let { modelsPath = it }
     patch.enabled?.let { enabled = it }
     patch.models?.let { changed ->
         models = providerModelsPatch { models.addAll(changed.map { it.toProto() }) }

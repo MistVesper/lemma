@@ -115,7 +115,6 @@ class ConnectLemmaClientTest {
                         apiFormat = ApiFormat.OpenAi,
                         baseUrl = vendorUrl,
                         apiPath = "",
-                        modelsPath = "",
                         models = listOf(ClientModel("answer", toolCalling = true)),
                     ),
             ),
@@ -318,12 +317,12 @@ class ConnectLemmaClientTest {
             tree.messages.filter { it.role == "user" }.map { it.parentId },
         )
         assertEquals(branchUser, activePath(tree).first().id)
-        val moved = client.setSessionLeaf(session.id, firstReply)
-        assertEquals(session.id to firstReply, moved.id to moved.leafId)
+        client.setSessionLeaf(session.id, firstReply)
         assertEquals(firstReply, client.listMessages(session.id).leafId)
         assertEquals("Plan", client.setMessageLabel(session.id, branchUser, "Plan").label)
         assertNull(client.setMessageLabel(session.id, branchUser, null).label)
-        assertNull(client.setSessionLeaf(session.id, null).leafId)
+        client.setSessionLeaf(session.id, null)
+        assertNull(client.listMessages(session.id).leafId)
     }
 
     @Test
@@ -436,20 +435,13 @@ class ConnectLemmaClientTest {
                     baseUrl = "https://proxy.example.com/v1",
                     apiKey = "sk-2",
                     apiPath = "/chat",
-                    modelsPath = "/models",
                 ),
             )
         val unchanged = client.updateCustomProvider(created.id, ClientCustomProviderPatch())
 
         assertEquals(
             created
-                .withCustom {
-                    copy(
-                        baseUrl = "https://proxy.example.com/v1",
-                        apiPath = "/chat",
-                        modelsPath = "/models",
-                    )
-                }
+                .withCustom { copy(baseUrl = "https://proxy.example.com/v1", apiPath = "/chat") }
                 .copy(apiKey = "sk-2"),
             updated,
         )

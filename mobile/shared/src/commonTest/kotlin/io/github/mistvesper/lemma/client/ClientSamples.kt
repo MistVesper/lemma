@@ -19,7 +19,6 @@ fun sampleProvider(
                 apiFormat = ApiFormat.OpenAi,
                 baseUrl = "https://api.example.com/v1",
                 apiPath = "",
-                modelsPath = "",
                 models = models.map { ClientModel(it, toolCalling = true) },
             ),
     )

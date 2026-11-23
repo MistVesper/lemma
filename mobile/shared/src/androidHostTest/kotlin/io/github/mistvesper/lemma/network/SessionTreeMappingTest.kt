@@ -13,22 +13,13 @@ private const val AT_MILLIS = 12_345L
 class SessionTreeMappingTest {
 
     @Test
-    fun aSessionMapsItsLeafDirectoryAndRunningTurn() {
+    fun aSessionMapsItsRunningTurn() {
         assertEquals(
-            ClientSession(
-                id = "s1",
-                title = "Trip",
-                updatedAt = AT_MILLIS,
-                leafId = "a1",
-                directory = "/home/me/trip",
-                activeMessageId = "q1",
-            ),
+            ClientSession(id = "s1", title = "Trip", updatedAt = AT_MILLIS, activeMessageId = "q1"),
             session {
                 id = "s1"
                 title = "Trip"
                 updatedAt = AT
-                leafId = "a1"
-                directory = "/home/me/trip"
                 activeMessageId = "q1"
             }
                 .toClient(),

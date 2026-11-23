@@ -49,7 +49,7 @@ interface LemmaClient {
     suspend fun listMessages(sessionId: String): ClientMessageTree
 
     /** Moves the session's active path to end at [leafId]; null rewinds it before the root. */
-    suspend fun setSessionLeaf(sessionId: String, leafId: String?): ClientSession
+    suspend fun setSessionLeaf(sessionId: String, leafId: String?)
 
     /** Sets the bookmark [label] on a session message; null clears it. */
     suspend fun setMessageLabel(sessionId: String, messageId: String, label: String?): ClientMessage

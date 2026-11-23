@@ -8,6 +8,5 @@ data class ClientCustomProviderInput(
     val baseUrl: String,
     val apiKey: String = "",
     val apiPath: String = "",
-    val modelsPath: String = "",
     val models: List<ClientModel> = emptyList(),
 )

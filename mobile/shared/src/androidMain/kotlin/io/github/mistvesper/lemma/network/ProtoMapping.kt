@@ -49,7 +49,6 @@ internal fun Provider.toClient(): ClientProvider =
                         apiFormat = custom.apiFormat.toClient(),
                         baseUrl = custom.baseUrl,
                         apiPath = custom.apiPath,
-                        modelsPath = custom.modelsPath,
                         models = custom.modelsList.map { it.toClient() },
                     )
                 else -> throw IllegalArgumentException("Provider source is not set")
@@ -82,8 +81,6 @@ internal fun Session.toClient(): ClientSession =
         id = id,
         title = title,
         updatedAt = updatedAt.epochMillis(),
-        leafId = if (hasLeafId()) leafId else null,
-        directory = if (hasDirectory()) directory else null,
         activeMessageId = if (hasActiveMessageId()) activeMessageId else null,
     )
 

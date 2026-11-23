@@ -149,17 +149,17 @@ class ConnectLemmaClient(private val rpc: LemmaRpcClient) : LemmaClient {
         )
     }
 
-    override suspend fun setSessionLeaf(sessionId: String, leafId: String?): ClientSession = call {
-        rpc.session.setSessionLeaf(
-            setSessionLeafRequest {
-                this.sessionId = sessionId
-                leafId?.let { this.leafId = it }
-            },
-            emptyMap(),
-        )
+    override suspend fun setSessionLeaf(sessionId: String, leafId: String?) {
+        call {
+            rpc.session.setSessionLeaf(
+                setSessionLeafRequest {
+                    this.sessionId = sessionId
+                    leafId?.let { this.leafId = it }
+                },
+                emptyMap(),
+            )
+        }
     }
-        .session
-        .toClient()
 
     override suspend fun setMessageLabel(
         sessionId: String,

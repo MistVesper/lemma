@@ -6,7 +6,6 @@ data class ClientCustomProviderPatch(
     val baseUrl: String? = null,
     val apiKey: String? = null,
     val apiPath: String? = null,
-    val modelsPath: String? = null,
     val enabled: Boolean? = null,
     val models: List<ClientModel>? = null,
 )

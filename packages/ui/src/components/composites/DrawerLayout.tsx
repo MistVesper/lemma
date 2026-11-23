@@ -87,7 +87,7 @@ export function DrawerLayout({
                             ref={drawerRef}
                             tabIndex={-1}
                             aria-labelledby={headingId}
-                            className="slide-in-from-right animate-in fade-in-0 absolute inset-y-0 right-0 z-30 flex w-full flex-col border-l border-border bg-background shadow-overlay duration-slow ease-enter outline-none lg:w-120 motion-reduce:animate-none"
+                            className="slide-in-from-right animate-in fade-in-0 absolute inset-y-0 right-0 z-30 flex w-full flex-col border-l border-border bg-background pt-(--titlebar-safe-top,0px) shadow-overlay duration-slow ease-enter outline-none lg:w-120 motion-reduce:animate-none"
                         >
                             {drawer}
                         </aside>

@@ -12,6 +12,8 @@ export {
 export { FollowScroll } from "./components/composites/FollowScroll";
 export { Markdown } from "./components/composites/Markdown";
 export { PasswordInput } from "./components/composites/PasswordInput";
+export { PickerTrigger } from "./components/composites/PickerTrigger";
+export { SearchInput } from "./components/composites/SearchInput";
 export {
     SettingsField,
     SettingsRow,
@@ -32,7 +34,6 @@ export { EllipsisIcon } from "./components/icons/ellipsis";
 export { PencilIcon } from "./components/icons/pencil";
 export { PlusIcon } from "./components/icons/plus";
 export { RefreshCwIcon } from "./components/icons/refresh-cw";
-export { SearchIcon } from "./components/icons/search";
 export { SettingsIcon } from "./components/icons/settings";
 export { Trash2Icon } from "./components/icons/trash-2";
 export { XIcon } from "./components/icons/x";
@@ -82,6 +83,7 @@ export {
     InputGroupButton,
     InputGroupInput,
 } from "./components/primitives/input-group";
+export { Kbd } from "./components/primitives/kbd";
 export {
     Select,
     SelectContent,
@@ -119,7 +121,7 @@ export {
 export { useSidebar } from "./hooks/use-sidebar";
 export { cn } from "./lib/cn";
 export { formatClockTime, formatDuration } from "./lib/format-duration";
-export { isShortcutIgnored } from "./lib/shortcut";
+export { formatModShortcut, isShortcutIgnored } from "./lib/shortcut";
 export { AnimateIcon } from "@animate-ui/react/icons";
 export { toast } from "sonner";
 declare module "react" {

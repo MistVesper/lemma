@@ -11,7 +11,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
             data-slot="sidebar-group"
             data-sidebar="group"
             className={cn(
-                "relative flex w-full min-w-0 flex-col p-2",
+                "relative flex w-full min-w-0 flex-col px-2 py-1.5",
                 className,
             )}
             {...props}
@@ -29,7 +29,7 @@ function SidebarGroupLabel({
         props: mergeProps<"div">(
             {
                 className: cn(
-                    "mt-2 flex h-7 shrink-0 items-center rounded-md px-2 text-caption text-subtle-foreground ring-sidebar-ring outline-hidden focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+                    "mt-1.5 flex h-6 shrink-0 items-center rounded-md px-2 text-caption font-medium text-subtle-foreground ring-ring/60 outline-hidden focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
                     className,
                 ),
             },
@@ -63,7 +63,7 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
             data-slot="sidebar-menu"
             data-sidebar="menu"
             className={cn(
-                "flex w-full min-w-0 flex-col gap-0 text-small",
+                "flex w-full min-w-0 flex-col gap-0.5 text-small",
                 className,
             )}
             {...props}
@@ -83,7 +83,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-    "peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-small text-sidebar-foreground ring-sidebar-ring outline-hidden transition-[background-color,color] duration-base ease-move group-has-data-[sidebar=menu-action]/menu-item:pr-8 hover:bg-sidebar-accent focus-visible:ring-2 active:bg-selected disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:bg-sidebar-accent data-active:bg-selected data-active:font-medium [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground data-active:[&_svg]:text-sidebar-foreground [&>span:last-child]:truncate",
+    "peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-small text-foreground ring-ring/60 outline-hidden transition-[background-color,color] duration-base ease-move group-has-data-[sidebar=menu-action]/menu-item:pr-8 hover:bg-accent focus-visible:ring-2 active:bg-selected disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:bg-accent data-active:bg-selected data-active:font-medium [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground data-active:[&_svg]:text-foreground [&>span:last-child]:truncate",
     {
         variants: {
             size: {
@@ -139,9 +139,9 @@ function SidebarMenuAction({
         props: mergeProps<"button">(
             {
                 className: cn(
-                    "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform peer-hover/menu-button:text-sidebar-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+                    "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-muted-foreground ring-ring/60 outline-hidden transition-colors peer-hover/menu-button:text-foreground peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=sm]/menu-button:top-1 after:absolute after:-inset-2 hover:bg-accent hover:text-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
                     showOnHover &&
-                        "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-sidebar-foreground aria-expanded:opacity-100 md:opacity-0",
+                        "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-active/menu-button:text-foreground aria-expanded:opacity-100 md:opacity-0",
                     className,
                 ),
             },

@@ -180,6 +180,14 @@ desktop-package:
     just desktop-build
     npm run package
 
+# Build the release engine addon and the renderer, then package the app and make its installers for the host platform
+[group('desktop')]
+[working-directory('desktop')]
+desktop-make:
+    cargo build --release -p lemma-napi
+    just desktop-build
+    npm run make
+
 # Type-check the shared packages in packages/
 [group('packages')]
 packages-type-check:

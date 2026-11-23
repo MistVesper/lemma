@@ -31,7 +31,7 @@ npm ci
 ### Run the clients
 
 - **Daemon and web:** `just web-build` then `just rust-dev` (`lemma-daemon` embeds `web/dist` at compile time and serves `http://127.0.0.1:1025`). For hot reload against a running daemon, run `just web-dev`.
-- **Desktop:** `just desktop-dev` builds `lemma-napi`, builds the web renderer, and launches Electron ([desktop/AGENTS.md](../desktop/AGENTS.md)).
+- **Desktop:** `just desktop-dev` builds `lemma-napi`, builds the web renderer, and launches Electron ([desktop/AGENTS.md](../desktop/AGENTS.md)). `just desktop-package` packages a release build of the app, and `just desktop-make` also makes its installers for the host platform.
 - **Android:** `just mobile-android-build` assembles the debug APK (`-Plemma.rust.profile=release` for release JNI libs; [mobile/AGENTS.md](../mobile/AGENTS.md)).
 
 ## Reference

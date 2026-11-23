@@ -48,6 +48,11 @@ rust-fmt-check:
 rust-fmt:
     cargo fmt --all
 
+# Build the workspace
+[group('rust')]
+rust-build:
+    cargo build --workspace
+
 # Run the daemon
 [group('rust')]
 rust-dev:

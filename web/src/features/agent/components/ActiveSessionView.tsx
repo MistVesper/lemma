@@ -8,7 +8,7 @@ import { errorText } from "@/i18n/error-text";
 import { groupTurns, type TurnStoreSlice } from "../active-path";
 import { buildSessionTree } from "../session-tree";
 import { useActiveSession } from "../useActiveSession";
-import { useModelSelection, type ModelOption } from "../useModelSelection";
+import { useModelSelection, type ModelSelection } from "../useModelSelection";
 import { ComposerDock, type ComposerDockState } from "./ComposerDock";
 import { SessionComposer, type SessionProviderGroup } from "./SessionComposer";
 import { SessionDirectoryBadge } from "./SessionDirectoryBadge";
@@ -19,7 +19,7 @@ import { TurnView } from "./TurnView";
 export interface ActiveSessionViewProps {
     sessionId: string;
     directory?: string | undefined;
-    modelOptions: ModelOption[];
+    modelOptions: ModelSelection[];
     providers: SessionProviderGroup[];
     onOpenProviders: () => void;
 }

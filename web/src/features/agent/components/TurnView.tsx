@@ -59,7 +59,7 @@ export function TurnView({
                         : (step.toolName ?? "")
                     : step.argument,
             plainArgument: step.plainArgument,
-            warn: step.warn,
+            warn: step.isError,
             active: activePaneStepId === step.id,
             onSelect: () => onInspectStep(step),
             meta,

@@ -14,7 +14,6 @@ export interface SessionTreeRow {
     meta?: string | undefined;
     rails: TreeRailSegment[];
     hasTopSpine: boolean;
-    hasBottomSpine: boolean;
     onPath: boolean;
     isLeaf: boolean;
 }
@@ -85,7 +84,6 @@ export function buildSessionTree(
                 meta: child.meta,
                 rails: [...prefixRails, "tee"],
                 hasTopSpine: false,
-                hasBottomSpine: child.children.length > 0,
                 onPath: child.onPath,
                 isLeaf: child.isLeaf,
             });

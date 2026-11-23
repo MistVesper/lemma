@@ -24,7 +24,6 @@ export interface TurnStep {
     via?: string | undefined;
     isError: boolean;
     selfHealed: boolean;
-    warn: boolean;
     state: "running" | "done";
     detail: DetailPayload;
 }
@@ -78,7 +77,6 @@ export function buildTurnSteps(assistantSteps: UiMessage[]): TurnStep[] {
                 via: parsed.via,
                 isError: call.isError,
                 selfHealed: call.isError && hasLaterSuccess,
-                warn: call.isError,
                 state: call.state,
                 detail: parsed.detail,
             });
@@ -107,7 +105,6 @@ function thinkingStep(item: UiMessage): TurnStep {
         finishedAt: item.thinkingFinishedAt,
         isError: false,
         selfHealed: false,
-        warn: false,
         state,
         detail: { kind: "prose", text: item.thinking },
     };

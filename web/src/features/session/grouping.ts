@@ -5,7 +5,6 @@ export interface SessionSummary {
     title: string;
     updatedAtMs: number;
     directory?: string;
-    leafId?: string;
     activeMessageId?: string;
 }
 

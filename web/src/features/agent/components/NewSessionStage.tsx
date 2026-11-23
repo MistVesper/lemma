@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { errorText } from "@/i18n/error-text";
 
 import { useActiveSessionStore } from "../store";
-import { useModelSelection, type ModelOption } from "../useModelSelection";
+import { useModelSelection, type ModelSelection } from "../useModelSelection";
 import { SessionComposer, type SessionProviderGroup } from "./SessionComposer";
 import {
     SessionDirectoryPicker,
@@ -15,7 +15,7 @@ import { StageComposer } from "./SessionStage";
 
 export interface NewSessionStageProps {
     directoryControl: SessionDirectoryControl;
-    modelOptions: ModelOption[];
+    modelOptions: ModelSelection[];
     providers: SessionProviderGroup[];
     onOpenProviders: () => void;
     onCreateSession: (directory?: string) => Promise<string>;

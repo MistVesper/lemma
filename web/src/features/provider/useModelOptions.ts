@@ -4,7 +4,6 @@ import { useProviders } from "./useProviders";
 /** A model a session can use, with the provider that serves it. */
 export interface ModelOption {
     providerId: string;
-    providerName: string;
     model: string;
 }
 
@@ -20,7 +19,6 @@ export function useModelOptions(): {
             .flatMap((p) =>
                 p.models.map((model) => ({
                     providerId: p.id,
-                    providerName: p.name,
                     model: model.id,
                 })),
             ),

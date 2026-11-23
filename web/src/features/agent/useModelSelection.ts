@@ -5,10 +5,6 @@ export interface ModelSelection {
     model: string;
 }
 
-export interface ModelOption extends ModelSelection {
-    providerName: string;
-}
-
 function isModelSelection(value: unknown): value is ModelSelection {
     return (
         typeof value === "object" &&
@@ -38,7 +34,7 @@ const MODEL_CODEC: StoredCodec<ModelSelection | null> = {
 };
 
 /** The stored model choice while `options` offers it, else the first option. */
-export function useModelSelection(options: ModelOption[]) {
+export function useModelSelection(options: ModelSelection[]) {
     const [stored, setStored] = useStoredValue("lemma.model", MODEL_CODEC);
     const storedOffered =
         stored !== null &&

@@ -12,7 +12,7 @@ import {
 } from "@/gen/lemma/v1/session_pb";
 
 import { useActiveSessionStore } from "../store";
-import type { ModelOption } from "../useModelSelection";
+import type { ModelSelection } from "../useModelSelection";
 import { NewSessionStage, type NewSessionStageProps } from "./NewSessionStage";
 import type { SessionProviderGroup } from "./SessionComposer";
 import type { SessionDirectoryControl } from "./SessionDirectoryPicker";
@@ -36,9 +36,7 @@ vi.mock("@/rpc/clients", () => ({
     sessionClient: { listMessages: rpc.listMessages },
 }));
 
-const defaultOptions: ModelOption[] = [
-    { providerId: "p1", model: "m1", providerName: "Acme" },
-];
+const defaultOptions: ModelSelection[] = [{ providerId: "p1", model: "m1" }];
 
 const defaultProviders: SessionProviderGroup[] = [
     { id: "p1", name: "Acme", enabled: true, models: [{ id: "m1" }] },

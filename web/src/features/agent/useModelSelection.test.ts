@@ -1,11 +1,11 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, expect, it } from "vitest";
 
-import { useModelSelection, type ModelOption } from "./useModelSelection";
+import { useModelSelection, type ModelSelection } from "./useModelSelection";
 
-const options: ModelOption[] = [
-    { providerId: "p1", model: "m1", providerName: "One" },
-    { providerId: "p2", model: "m2", providerName: "Two" },
+const options: ModelSelection[] = [
+    { providerId: "p1", model: "m1" },
+    { providerId: "p2", model: "m2" },
 ];
 
 afterEach(() => {

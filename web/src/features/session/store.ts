@@ -138,7 +138,6 @@ function toSummary(c: Session): SessionSummary {
                 ? 0
                 : timestampDate(c.updatedAt).getTime(),
         ...(c.directory === undefined ? {} : { directory: c.directory }),
-        ...(c.leafId === undefined ? {} : { leafId: c.leafId }),
         ...(c.activeMessageId === undefined
             ? {}
             : { activeMessageId: c.activeMessageId }),

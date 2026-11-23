@@ -60,13 +60,11 @@ function SessionActions({ children }: { children: ReactNode }) {
 }
 
 function TrailingIndicator({
-    active,
     activeMessageId,
     errored,
     unseenDone,
     timeText,
 }: {
-    active: boolean;
     activeMessageId?: string | undefined;
     errored: boolean;
     unseenDone: boolean;
@@ -84,7 +82,7 @@ function TrailingIndicator({
             />
         );
     }
-    if (unseenDone && !active) {
+    if (unseenDone) {
         return (
             <span
                 aria-hidden="true"
@@ -132,7 +130,6 @@ export function SessionItem({
                         {titleLabel}
                     </span>
                     <TrailingIndicator
-                        active={active}
                         activeMessageId={session.activeMessageId}
                         errored={errored}
                         unseenDone={unseenDone}

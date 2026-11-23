@@ -50,7 +50,7 @@ npm ci
 
 ### Worktree
 
-并行开发时在主目录旁新建独立 worktree（[AGENTS.md](../AGENTS.md#git)）：
+进行大型任务或并行开发时，在主目录旁新建独立 worktree（[AGENTS.md](../AGENTS.md#git)）：
 
 ```sh
 git worktree add ../lemma-<topic> -b <type>/<topic>

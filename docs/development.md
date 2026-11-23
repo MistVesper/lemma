@@ -50,7 +50,7 @@ npm ci
 
 ### Worktrees
 
-Create a separate worktree beside the main checkout when working in parallel ([AGENTS.md](../AGENTS.md#git)):
+Create a separate worktree beside the main checkout for large tasks or parallel work ([AGENTS.md](../AGENTS.md#git)):
 
 ```sh
 git worktree add ../lemma-<topic> -b <type>/<topic>

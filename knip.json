@@ -10,7 +10,7 @@
                 "scripts/*/{verify,gen,translate}-*.ts",
                 "scripts/**/*.test.ts"
             ],
-            "ignoreBinaries": ["just"],
+            "ignoreBinaries": ["buf", "just"],
             "project": ["scripts/**/*.ts"],
             "ignoreDependencies": [
                 "autocorrect-node",

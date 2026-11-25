@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - ".cargo/config.toml"
       - "Cargo.toml"
       - "Cargo.lock"
       - "rust-toolchain.toml"
@@ -16,6 +17,7 @@ on:
       - ".github/workflows/rust-ci.yml"
   pull_request:
     paths:
+      - ".cargo/config.toml"
       - "Cargo.toml"
       - "Cargo.lock"
       - "rust-toolchain.toml"

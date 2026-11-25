@@ -66,15 +66,7 @@ rust-test:
 # Coverage under nextest, failing on any uncovered line or function; args replace the terminal summary
 [group('rust')]
 rust-cov *args="--summary-only":
-    # Disable mbx OUT_DIR sharing so rustc records real paths instead of a ${target} placeholder that cargo-llvm-cov reports as uncovered.
-    MBX_SHARE_OUT_DIR=0 cargo llvm-cov nextest --workspace \
-        --exclude lemma-proto \
-        --exclude lemma-napi \
-        --exclude lemma-uniffi \
-        --ignore-filename-regex '[/\\\\]lemma-daemon[/\\\\]src[/\\\\](main|config|daemon|web_dist)\.rs$' \
-        --fail-uncovered-lines 0 \
-        --fail-uncovered-functions 0 \
-        {{ args }}
+    cargo cov {{ args }}
 
 # Run oxlint
 [group('web')]

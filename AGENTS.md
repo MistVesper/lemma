@@ -39,11 +39,20 @@ Never commit `.env` or local data directories; see [environment variables](docs/
 - **Names and types explain themselves** instead of comments that restate them.
 - **Delivered code carries no comments by default.** Design and constraint explanations stay in the conversation, docs, or commit messages; known issues go to GitHub issues, never to `TODO`, `FIXME`, or similar markers. Doc comments take the compact forms each subtree `AGENTS.md` defines.
 - **Remove debug statements** (`console.log`, `debugger`, `println!`, `dbg!`) before delivery.
-- **Delete obsolete and temporary code;** Git keeps history.
 - **Write logic for a defined scenario.** Before adding defensive logic (limits, fallback branches, extra validation, degraded paths), explain the scenario and the reason to the user and let the user decide.
 - **Specs, docs, and comments state function and boundaries precisely.** Phrase positively by default; boundaries, exclusions, and review checklists may use negative phrasing.
 - **Source files** stay within 300 lines and follow the file layout, naming, and test placement rules in [lemma-code-style](.agents/skills/lemma-code-style/SKILL.md#source-files); `just source-check` enforces the machine-checkable part.
 - **Code style:** [lemma-code-style](.agents/skills/lemma-code-style/SKILL.md) holds the upstream guides behind these rules.
+
+## Engineering principles
+
+- **Keep no backward compatibility.** Delete obsolete and temporary code, APIs, fields, and settings outright; add no compatibility layer or fallback that keeps old behavior alive. Git keeps history. Before writing a migration for persisted data, such as a schema change under `crates/shared/lemma-db/migrations/`, discuss the options with the user in detail and let the user decide.
+- **Build the simplest implementation that meets the current requirement.** Add no speculative abstraction, extension point, or configuration option for a need nobody has stated.
+- **Grow the system in layers.** Make a minimal end-to-end path work first, then extend it. Replace a working component only when a current requirement outgrows it, never for anticipated complexity.
+- **Keep components modular,** one concern each ([lemma-improve-architecture](.agents/skills/lemma-improve-architecture/SKILL.md) finds violations).
+- **Decide architecture for the long term.** Build what you build as its final design; ship no stopgap meant to be replaced later. Simplicity limits scope, never quality.
+- **Reuse before writing.** Check what existing dependencies already provide, then prefer a mature, maintained third-party library; write code in-house only when no library meets a concrete requirement, and state that requirement.
+- **Follow proven designs.** Before designing a solution, study how mature products solve the same problem and adopt the validated pattern.
 
 ## Answering the user
 

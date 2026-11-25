@@ -70,7 +70,7 @@ internal fun SessionDrawer(
             Text(
                 text = stringResource(Res.string.session_list_title),
                 style = LemmaTheme.typography.display,
-                color = LemmaTheme.colors.sidebarForeground,
+                color = LemmaTheme.colors.foreground,
             )
             Spacer(modifier = Modifier.height(16.dp))
             LemmaButton(

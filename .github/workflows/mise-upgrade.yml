@@ -33,7 +33,7 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Bump pinned versions
-        run: mise upgrade --bump
+        run: mise upgrade --bump --pin
 
       - name: Open update PR
         uses: peter-evans/create-pull-request@v8

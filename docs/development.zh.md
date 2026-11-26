@@ -69,3 +69,5 @@ Cargo 通过 `mbx`（由 `mise.toml` 的 `[wrappers.cargo]` 接管）在多 work
 ### CI 工作流
 
 [.github/workflows/](../.github/workflows/) 下的检查与覆盖率工作流调用与本地相同的 `just` recipe。各工作流的触发条件、路径过滤、系统矩阵与缓存配置以工作流文件本身为准。
+
+每个 job 只安装其 `install_args` 列出的 mise 工具：所有工作流都设置 `MISE_AUTO_INSTALL: false`，任何命令都不会按需安装 `mise.toml` 中的其余工具；需要其他工具的 job 须将其加入 `install_args`。

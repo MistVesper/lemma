@@ -69,3 +69,5 @@ Cargo runs through `mbx` (via `[wrappers.cargo]` in `mise.toml`), reusing compil
 ### CI workflows
 
 Check and coverage workflows under [.github/workflows/](../.github/workflows/) call the same `just` recipes as local runs. Inspect each workflow file for its triggers, path filters, OS matrix, and caching setup.
+
+Each job installs only the mise tools its `install_args` names: every workflow sets `MISE_AUTO_INSTALL: false`, so no command installs the rest of `mise.toml` on demand, and a job that needs another tool adds it to `install_args`.

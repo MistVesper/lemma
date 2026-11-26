@@ -18,6 +18,9 @@ concurrency:
   group: translation-${{ github.event.comment.id && format('comment-{0}', github.event.comment.id) || github.event.issue.number || github.event.pull_request.number || 'open-items' }}
   cancel-in-progress: true
 
+env:
+  MISE_AUTO_INSTALL: false
+
 jobs:
   translate:
     name: Translate

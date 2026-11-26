@@ -2,11 +2,6 @@
 
 [English](README.md) | 中文
 
-<picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/svg/lockup_workspace_dark.svg">
-    <img alt="Lemma" src="assets/brand/svg/lockup_workspace_light.svg" width="440">
-</picture>
-
 Lemma 用同一套 Rust 核心为 Web、桌面与 Android 客户端运行 LLM agent，提供消息树会话、可配置的模型与 Web provider，以及本地文件与 shell 工具。
 
 ## 快速开始
@@ -33,6 +28,5 @@ just rust-dev
 - [设计 token](design/README.zh.md)：各客户端共用的颜色、圆角、字号与动效 token，及其生成产物。
 - [界面文案](i18n/README.zh.md)：客户端界面文案的 YAML 源文件，以及生成的 Web 与 Android 资源。
 - [共享 UI 组件](packages/ui/README.zh.md)：`@lemma/ui` 控件、样式规则、设置页与动效工具类。
-- [品牌资产](assets/brand/README.zh.md)：品牌母版、使用规则与重新生成。
 - [AGENTS.md](AGENTS.md)：仓库结构与工程约定。
 - [Skills](.agents/skills/README.md)：agent skill 的目录结构与命名。

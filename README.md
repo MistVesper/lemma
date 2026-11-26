@@ -2,11 +2,6 @@
 
 English | [中文](README.zh.md)
 
-<picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/svg/lockup_workspace_dark.svg">
-    <img alt="Lemma" src="assets/brand/svg/lockup_workspace_light.svg" width="440">
-</picture>
-
 Lemma runs LLM agents for web, desktop, and Android clients from one Rust core, with message-tree sessions, configurable model and web providers, and local file/shell tools.
 
 ## Quick start
@@ -33,6 +28,5 @@ just rust-dev
 - [Design tokens](design/README.md): colors, radii, typography, and motion shared by all clients, and their generated outputs.
 - [Interface strings](i18n/README.md): YAML sources of the clients' UI text and the generated web and Android resources.
 - [Shared UI components](packages/ui/README.md): `@lemma/ui` controls, styling rules, settings pages, and motion utilities.
-- [Brand assets](assets/brand/README.md): brand masters, usage rules, and regeneration.
 - [AGENTS.md](AGENTS.md): repository layout and engineering conventions.
 - [Skills](.agents/skills/README.md): layout and naming of agent skills.

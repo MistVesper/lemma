@@ -15,7 +15,6 @@ web/          React web client, also the desktop renderer (web/AGENTS.md)
 desktop/      Electron shell running the engine in a utility process (desktop/AGENTS.md)
 packages/     shared npm packages under the @lemma scope (packages/AGENTS.md)
 mobile/       Android app and Kotlin Multiplatform shared module (mobile/AGENTS.md)
-assets/       brand assets
 design/       design tokens for all clients (tokens.json)
 i18n/         platform-neutral UI strings (i18n/README.md)
 .agents/      skills (.agents/skills/README.md)

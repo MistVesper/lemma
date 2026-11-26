@@ -42,6 +42,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  MISE_AUTO_INSTALL: false
+
 jobs:
   deadcode:
     name: Dead code

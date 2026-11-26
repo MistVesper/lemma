@@ -50,6 +50,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  MISE_AUTO_INSTALL: false
+
 jobs:
   proto:
     name: Proto

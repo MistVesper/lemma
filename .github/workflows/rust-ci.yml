@@ -37,6 +37,7 @@ permissions:
 env:
   CARGO_INCREMENTAL: 0
   CARGO_TERM_COLOR: always
+  MISE_AUTO_INSTALL: false
 
 jobs:
   # lemma-daemon embeds web/dist (a gitignored build artifact) via RustEmbed,

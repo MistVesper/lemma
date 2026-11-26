@@ -18,6 +18,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  MISE_AUTO_INSTALL: false
+
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})

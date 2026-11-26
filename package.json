@@ -13,10 +13,10 @@
         "email": "wanzhao_ysy@qq.com"
     },
     "devDependencies": {
-        "@types/node": "^26.6.6",
+        "@types/node": "^26.6.7",
         "autocorrect-node": "^2.14.0",
         "jscpd": "^5.4.3",
-        "knip": "^6.47.0",
+        "knip": "^6.48.0",
         "markdownlint-cli2": "^0.24.2",
         "oxlint": "^1.94.0",
         "oxlint-tsgolint": "^7.0.2008",

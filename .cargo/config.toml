@@ -4,7 +4,7 @@ cov = [
     "--exclude", "lemma-proto",
     "--exclude", "lemma-napi",
     "--exclude", "lemma-uniffi",
-    "--ignore-filename-regex", '[/\\](llvm-cov-target[/\\]|lemma-daemon[/\\]src[/\\](main|config|daemon|web_dist)\.rs$)',
+    "--ignore-filename-regex", '[/\\](build[/\\][^/\\]+[/\\]([^/\\]+[/\\])?out[/\\]|lemma-daemon[/\\]src[/\\](main|config|daemon|web_dist)\.rs$)',
     "--fail-uncovered-lines", "0",
     "--fail-uncovered-functions", "0",
 ]
